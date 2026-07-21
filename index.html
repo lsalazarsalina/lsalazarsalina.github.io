@@ -8,15 +8,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --terra: #C17A5A;
-    --terra-light: #d4956f;
-    --terra-pale: #f9f9f9;
+    --terra: #613e00;
+    --terra-light: #039385;
+    --terra-pale: #ffffde;
     --dark: #1a1612;
-    --mid: #4a3f35;
+    --mid: #4d2500b0;
     --light: #ffffff;
-    --muted: #9fc8d9;
+    --muted: #000000;
     --accent: #2d3a4a;
-    --border: #e8ddd6;
+    --border: #f6f3ed;
+    --blog-accent: #e85100e0;
+    --blog-accent-light: #ffea00a6;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -91,9 +93,9 @@
     padding: 0.2rem 0.3rem;
     cursor: pointer;
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.78rem;
+    font-size: 0.5rem;
     color: var(--muted);
-    transition: color 0.2s;
+    transition: color 0.4s;
     letter-spacing: 0.08em;
   }
 
@@ -104,13 +106,13 @@
 
   /* HERO */
   .hero {
-    min-height: 100vh;
+    min-height: 120vh;
     display: flex;
     align-items: flex-end;
-    padding: 80px 2rem 5rem;
+    padding: 52px 4em 5rem;
     position: relative;
     overflow: hidden;
-    background: url('img/loreto-mar.jpg') center 30% / cover no-repeat;
+    background: url('img/loreto-mar.jpg') center 40% / cover no-repeat;
   }
 
   .hero::after {
@@ -122,8 +124,8 @@
   }
 
   .hero-chile {
-    position: absolute;
-    right: -3rem;
+    position: relative;
+    right: 4rem;
     top: 50%;
     transform: translateY(-45%);
     width: 55%;
@@ -136,8 +138,8 @@
   @media (max-width: 700px) {
     .hero-chile {
       width: 80%;
-      right: -1rem;
-      opacity: 0.1;
+      right: 11rem;
+      opacity: 100%;
     }
   }
 
@@ -153,7 +155,7 @@
     font-size: 0.72rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.8);
+    color: rgba(255, 246, 208, 0.8);
     margin-bottom: 2rem;
     display: flex;
     align-items: center;
@@ -173,26 +175,26 @@
     font-size: clamp(3rem, 8vw, 6rem);
     font-weight: 300;
     line-height: 1.05;
-    color: white;
+    color: rgba(6, 0, 0, 0.885);
     margin-bottom: 2rem;
   }
 
   .hero h1 em {
     font-style: italic;
-    color: #e8a882;
+    color: #e0ff43;
   }
 
   .hero-desc {
-    max-width: 560px;
+    max-width: 500px;
     color: rgba(255,255,255,0.85);
-    font-size: 1.05rem;
-    line-height: 1.8;
-    margin-bottom: 3rem;
+    font-size: 1rem;
+    line-height: 2;
+    margin-bottom: 7rem;
   }
 
   .hero-cta {
     display: flex;
-    gap: 1rem;
+    gap: 3rem;
     flex-wrap: wrap;
   }
 
@@ -204,7 +206,7 @@
     font-size: 0.82rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    transition: background 0.2s;
+    transition: background 0.4s;
     border-radius: 2px;
   }
 
@@ -224,26 +226,42 @@
 
   .btn-secondary:hover { border-color: white; color: white; }
 
+  .btn-blog {
+    background: var(--blog-accent);
+    color: white;
+    padding: 0.85rem 2rem;
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.2s;
+    border-radius: 2px;
+    box-shadow: 0 4px 14px rgba(179, 119, 15, 0.45);
+  }
+
+  .btn-blog:hover { background: var(--blog-accent-light); transform: translateY(-2px); }
+
   .hero-scroll {
-    margin-top: 3rem;
+    margin-top: 1rem;
     display: flex;
     align-items: center;
     gap: 1rem;
     color: rgba(255,255,255,0.5);
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
+    font-size: 0.55rem;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
   }
 
   .scroll-line {
-    width: 40px;
-    height: 1px;
+    width: 56px;
+    height: 20px;
     background: var(--muted);
-    animation: scrollLine 2s ease-in-out infinite;
+    animation: scrollLine 5s ease-in-out infinite;
   }
 
   @keyframes scrollLine {
-    0%, 100% { width: 40px; opacity: 0.4; }
+    10%, 100% { width: 40px; opacity: 0.4; }
     50% { width: 60px; opacity: 1; }
   }
 
@@ -287,7 +305,7 @@
   }
 
   .about-photo {
-    width: 100%;
+    width: 80%;
     max-height: 600px;
     object-fit: cover;
     object-position: center 40%;
@@ -534,7 +552,7 @@
   }
 
   @keyframes pulseDot {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(193,122,90,0.55); }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(126, 40, 0, 0.815); }
     50% { box-shadow: 0 0 0 7px rgba(193,122,90,0); }
   }
 
@@ -593,7 +611,7 @@
   }
 
   .blog-excerpt {
-    font-size: 0.9rem;
+    font-size: 0.rem;
     color: var(--mid);
     line-height: 1.65;
   }
@@ -606,28 +624,30 @@
     z-index: 90;
     display: flex;
     align-items: center;
-    gap: 0.6rem;
-    background: var(--terra);
+    gap: 0.85rem;
+    background: var(--blog-accent);
     color: white;
     text-decoration: none;
-    padding: 0.9rem 1.4rem;
+    padding: 1.25rem 1.5rem;
     border-radius: 50px;
-    font-size: 0.8rem;
-    letter-spacing: 0.07em;
+    font-size: 1.05rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
-    box-shadow: 0 6px 18px rgba(193,122,90,0.45);
+    box-shadow: 0 10px 26px rgba(0, 140, 255, 0.782);
     animation: floatPulse 2.4s ease-in-out infinite;
-    transition: transform 0.2s;
+    transition: transform 0.2s, background 0.2s;
   }
 
   .blog-float-btn:hover {
-    transform: translateY(-3px) scale(1.05);
+    transform: translateY(-4px) scale(1);
     animation-play-state: paused;
+    background: var(--blog-accent-light);
   }
 
   @keyframes floatPulse {
-    0%, 100% { box-shadow: 0 6px 18px rgba(193,122,90,0.45); transform: translateY(0); }
-    50% { box-shadow: 0 10px 30px rgba(193,122,90,0.65); transform: translateY(-4px); }
+    0%, 100% { box-shadow: 0 10px 26px rgba(234, 255, 7, 0.907); transform: translateY(0); }
+    50% { box-shadow: 0 16px 40px rgba(218, 255, 9, 0.75); transform: translateY(-6px); }
   }
 
   .blog-coming {
@@ -671,9 +691,13 @@
   /* PORTFOLIO */
   .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.75rem;
     margin-top: 3rem;
+  }
+
+  @media (max-width: 1300px) {
+    .portfolio-grid { grid-template-columns: repeat(4, 1fr); }
   }
 
   @media (max-width: 1000px) {
@@ -681,7 +705,7 @@
   }
 
   .portfolio-item {
-    aspect-ratio: 4/3;
+    aspect-ratio: 1/1;
     background: var(--terra-pale);
     position: relative;
     overflow: hidden;
@@ -689,7 +713,7 @@
   }
 
   .portfolio-item.tall {
-    aspect-ratio: 4/3;
+    aspect-ratio: 1/1;
     grid-row: span 1;
   }
 
@@ -733,13 +757,15 @@
 
   .portfolio-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
+    font-weight: 700;
     color: white;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.25rem;
+    line-height: 1.25;
   }
 
   .portfolio-loc {
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: rgba(255,255,255,0.6);
@@ -810,42 +836,43 @@
 
   /* FOOTER */
   footer {
-    border-top: 1px solid var(--border);
-    padding: 3rem 2rem 2rem;
-    min-height: 200px;
-    display: flex;
-    align-items: flex-end;
+    border-top: 15px solid var(--border);
+    padding: 2cm 2rem 2rem;
+    min-height: 300px;
+    display: relative;
+    align-items: relative-end;
     justify-content: space-between;
     flex-wrap: wrap;
     position: relative;
     overflow: hidden;
-    background: white;
+    background: rgb(255, 255, 255);
   }
 
   .footer-globe {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: -140px;
+    bottom: -150px;
     width: 640px;
-    opacity: 0.75;
-    pointer-events: none;
+    opacity: 95;
+    pointer-events: visiblePainted;
   }
 
   .footer-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 0.9rem;
-    color: var(--muted);
-    position: relative;
-    z-index: 1;
-  }
-
-  .footer-patent {
-    font-size: 0.72rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
     letter-spacing: 0.1em;
     color: var(--muted);
     position: relative;
-    z-index: 1;
+    z-index: 3;
+  }
+
+  .footer-patent {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    position: -webkit-sticky;
+    z-index: 3;
   }
 
 
@@ -863,11 +890,11 @@
     .services-grid { grid-template-columns: 1fr; }
     .plantillas-grid { grid-template-columns: 1fr; }
     .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
-    .portfolio-item.tall { aspect-ratio: 4/3; grid-row: span 1; }
+    .portfolio-item.tall { aspect-ratio: 1/1; grid-row: span 1; }
     .blog-post { grid-template-columns: 1fr; gap: 0.5rem; }
     .nav-links { display: none; }
     .blog-float-btn .blog-float-text { display: none; }
-    .blog-float-btn { padding: 0.9rem; }
+    .blog-float-btn { padding: 1.1rem; }
   }
 
   /* ANIMATIONS */
@@ -891,7 +918,7 @@
     <li><a href="#servicios"><span class="es">Servicios</span><span class="en">Services</span></a></li>
     <li><a href="#plantillas"><span class="es">Plantillas DOM</span><span class="en">DOM Templates</span></a></li>
     <li><a href="#blog">Blog</a></li>
-    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#portfolio"><span class="es">Portafolio</span><span class="en">Portfolio</span></a></li>
     <li><a href="#contacto"><span class="es">Contacto</span><span class="en">Contact</span></a></li>
   </ul>
   <div class="lang-toggle">
@@ -912,9 +939,10 @@
       Arquitectura · Territorio · Chile
     </div>
     <h1>El territorio<br>es mi <em>escuela.</em></h1>
-    <p class="hero-desc">Arquitectura rural, bioconstrucción y planificación territorial en Chile. Desde el territorio, y ahora desde el mar.</p>
+    <p class="hero-desc">Arquitectura rural y urbana, bioconstrucción y planificación territorial en Chile. Desde el territorio, y ahora desde el mar.</p>
     <div class="hero-cta">
       <a href="#servicios" class="btn-primary">Ver servicios</a>
+      <a href="#blog" class="btn-blog">Ver Blog</a>
       <a href="#plantillas" class="btn-secondary">Plantillas DOM</a>
     </div>
     <div class="hero-scroll">
@@ -932,11 +960,12 @@
     <span class="es">Sobre mí</span><span class="en">About me</span>
   </div>
   <h2 class="section-title">
-    <span class="es">Arquitecta, nómada,<br><em>trazadora de territorios.</em></span>
-    <span class="en">Architect, nomad,<br><em>mapper of territories.</em></span>
+    <span class="es">Arquitecta, nómada,<br><em>trazando territorios.</em></span>
+    <span class="en">Architect, nomad,<br><em>mapping territories.</em></span>
   </h2>
   <div class="about-photo-wrap">
-    <img src="img/loreto-montana.jpg" alt="Loreto Salazar — Refugio Nómada" class="about-photo">
+    <img src="img/loreto-montana.jpg" style="width:55%;border-radius:2px;margin:1rem 0 0.75rem;" 
+    alt="Loreto Salazar — Refugio Nómada" class="about-photo">
     <div class="about-photo-caption"><span class="es">En terreno · Chile</span><span class="en">On site · Chile</span></div>
   </div>
   <div class="about-grid">
@@ -1201,7 +1230,7 @@
 
   <div class="post-body">
 
-            <img src="img/plate_story_01.png" alt="Mástil de Silver Harmony, Nova Scotia" style="width:100%;border-radius:3px;margin:0 0 0.75rem;">
+            <img src="img/plate_story_01.png" alt="Mástil de Silver Harmony, Nova Scotia" style="width:70%;border-radius:3px;margin:0 0 0.75rem;">
     <p style="font-size:0.78rem;color:var(--muted);text-align:center;margin-bottom:2.5rem;font-style:italic;">Silver Harmony · Nova Scotia, Canadá</p>
 
     <p class="es">Zarpé de Halifax en Silver Harmony sin buscarlo, pero de nuevo terminé aprendiendo territorio: esta vez desde el agua. La costa de Nova Scotia se lee con el mismo cuidado que un terreno rural en Melipilla — hay que entender el viento, las corrientes y los límites antes de trazar cualquier rumbo. Estas son cinco lecciones de navegación que, sin proponérmelo, terminaron siendo lecciones de arquitectura territorial.</p>
@@ -1209,42 +1238,42 @@
 
     <h4 class="es">La zona muerta</h4>
     <h4 class="en">The no-go zone</h4>
-          <img src="img/plate_story_02.png" alt="La zona muerta, vela y viento" style="width:100%;border-radius:3px;margin:1rem 0 0.75rem;">
+          <img src="img/plate_story_02.png" alt="La zona muerta, vela y viento" style="width:70%;border-radius:3px;margin:1rem 0 0.75rem;">
     <p style="font-size:0.78rem;color:var(--muted);text-align:center;margin-bottom:1.5rem;font-style:italic;">No-go zone.</p>
     <p class="es">Hay un sector, justo contra el viento, donde un velero simplemente no puede navegar. No importa cuánto se ajusten las velas: ese ángulo no se cruza de frente, se bordea con paciencia, en zigzag, ganando terreno de a poco. En el territorio rural chileno pasa igual. Hay límites — una napa freática, un plan regulador, una restricción de uso de suelo — que no se enfrentan de frente. No se les gana peleando: se navega alrededor de ellos con cada bordada del proyecto.</p>
     <p class="en">There's a sector, straight into the wind, where a sailboat simply cannot go. No matter how you trim the sails, that angle isn't crossed head-on — it's worked around patiently, in a zigzag, gaining ground little by little. Rural Chilean land works the same way. There are limits — a water table, a zoning plan, a land-use restriction — that don't get confronted directly. You don't win against them by fighting; you tack around them, one design decision at a time.</p>
 
     <h4 class="es">Navegar ceñida</h4>
     <h4 class="en">Sailing close-hauled</h4>
-        <img src="img/plate_story_03.png" alt="Navegando ceñida" style="width:100%;border-radius:3px;margin:1rem 0 0.75rem;">
+        <img src="img/plate_story_03.png" alt="Navegando ceñida" style="width:70%;border-radius:3px;margin:1rem 0 0.75rem;">
     <p style="font-size:0.78rem;color:var(--muted);text-align:center;margin-bottom:1.5rem;font-style:italic;">Close hauled.</p>
     <p class="es">Ceñida es el ángulo más cerca del viento que un barco puede sostener sin perder el rumbo: exige precisión y atención constante, sin margen para la distracción. Así se siente leer un expediente DOM ajustado al milímetro a la normativa vigente — un grado de más y se cae el proyecto, un grado de menos y se pierde eficiencia. La ceñida no perdona el descuido, y tampoco lo hace un permiso de edificación.</p>
     <p class="en">Close-hauled is the closest angle to the wind a boat can hold without losing its course: it demands precision and constant attention, no room for distraction. That's exactly what it feels like to read a building-permit file drafted to the letter of current regulations — one degree off and the project falls apart, one degree too cautious and it loses efficiency. Sailing close-hauled doesn't forgive carelessness, and neither does a building permit.</p>
 
     <h4 class="es">Ir al través</h4>
     <h4 class="en">Beam reach</h4>
-        <img src="img/plate_story_04.png" alt="Vela al través" style="width:100%;border-radius:3px;margin:1rem 0 0.75rem;">
+        <img src="img/plate_story_04.png" alt="Vela al través" style="width:70%;border-radius:3px;margin:1rem 0 0.75rem;">
     <p style="font-size:0.78rem;color:var(--muted);text-align:center;margin-bottom:1.5rem;font-style:italic;">Beam reach.</p>
     <p class="es">Cuando el viento pega de costado, el bote encuentra su punto más rápido y equilibrado: velocidad sin sacrificar control. Es la sensación que persigo en cada proyecto — el ángulo justo entre lo que exige la normativa y lo que pide el lugar, entre el presupuesto y la ambición, entre lo que sueña el cliente y lo que el territorio permite.</p>
     <p class="en">When the wind hits from the side, the boat finds its fastest, most balanced point of sail: speed without losing control. It's the feeling I chase in every project — the exact angle between what the regulations require and what the site asks for, between budget and ambition, between what the client dreams of and what the land allows.</p>
 
     <h4 class="es">Tomar largo</h4>
     <h4 class="en">Broad reach</h4>
-        <img src="img/plate_story_05.png" alt="Navegando a largo" style="width:100%;border-radius:3px;margin:1rem 0 0.75rem;">
+        <img src="img/plate_story_05.png" alt="Navegando a largo" style="width:70%;border-radius:3px;margin:1rem 0 0.75rem;">
     <p style="font-size:0.78rem;color:var(--muted);text-align:center;margin-bottom:1.5rem;font-style:italic;">Broad reach.</p>
     <p class="es">Con el viento a favor, el barco se abre y toma impulso: hay más espacio para mirar el paisaje que para corregir el rumbo. En una obra, ese es el momento del gesto: cuando ya está resuelta la estructura y el permiso, y queda espacio para pensar en la materialidad, el detalle, la identidad del lugar — la parte del oficio que más disfruto.</p>
     <p class="en">With the wind behind it, the boat opens up and gains momentum — there's more room to take in the landscape than to correct the course. In a building, that's the moment for the gesture: once the structure and the permit are settled, there's space to think about materiality, detail, the identity of the place — the part of the craft I enjoy most.</p>
 
     <h4 class="es">Correr en popa</h4>
     <h4 class="en">Running</h4>
-        <img src="img/plate_story_06.png" alt="Corriendo en popa, vista de popa hacia el mar" style="width:100%;border-radius:3px;margin:1rem 0 0.75rem;">
+        <img src="img/plate_story_06.png" alt="Corriendo en popa, vista de popa hacia el mar" style="width:70%;border-radius:3px;margin:1rem 0 0.75rem;">
     <p style="font-size:0.78rem;color:var(--muted);text-align:center;margin-bottom:1.5rem;font-style:italic;">Running.</p>
     <p class="es">Correr en popa, con el viento empujando directo desde atrás, es la sensación más calma de toda la navegación — y, contradictoriamente, la que exige más atención, porque un descuido puede provocar una trasluchada. Me recuerda a una obra ya construida y entregada: tranquila por fuera, pero que sigue pidiendo mantención, cuidado, atención silenciosa por dentro.</p>
     <p class="en">Running, with the wind pushing straight from behind, is the calmest feeling in all of sailing — and, contradictorily, the one that demands the most attention, since a moment's carelessness can cause an accidental jibe. It reminds me of a finished, delivered building: calm on the outside, but still asking for maintenance, care, quiet attention on the inside.</p>
 
     <h4 class="es">El territorio es mi escuela</h4>
     <h4 class="en">The land is my school</h4>
-        <img src="img/plate_story_07.png" alt="Puente levadizo, Nova Scotia" style="width:100%;border-radius:3px;margin:1rem 0 0.75rem;">
+        <img src="img/plate_story_07.png" alt="Puente levadizo, Nova Scotia" style="width:70%;border-radius:3px;margin:1rem 0 0.75rem;">
     <p style="font-size:0.78rem;color:var(--muted);text-align:center;margin-bottom:2.5rem;font-style:italic;">Nova Scotia, Canadá.</p>
     <p class="es">No importa si es un fiordo en Nova Scotia o un lote rural en Pucón: entender el lugar antes de intervenirlo es siempre el mismo oficio. Cada milla navegada desde Halifax hasta acá confirma lo que ya sabía desde tierra firme — que el territorio, sea agua o suelo, siempre tiene algo que enseñar antes de dejarse construir, o navegar.</p>
     <p class="en">Whether it's a fjord in Nova Scotia or a rural lot in Pucón, understanding a place before intervening in it is always the same craft. Every mile sailed from Halifax to here confirms what I already knew on dry land — that territory, whether water or soil, always has something to teach before it lets itself be built on, or sailed.</p>
@@ -1273,12 +1302,12 @@
   <div class="portfolio-group-title es">Refugio Leucotón · En Obra</div>
   <div class="portfolio-group-title en">Refugio Leucotón · Under Construction</div>
   <div class="portfolio-grid">
-    <div class="portfolio-item"><img src="img/maqueta-dia.jpg" style="width:100%;height:100%;object-fit:cover;"><div class="portfolio-overlay"><div class="portfolio-title"><span class="es">Maqueta · Leucotón</span><span class="en">Model · Leucotón</span></div><div class="portfolio-loc">Manquemapu · Los Lagos</div></div></div>
+    <div class="portfolio-item"><img src="img/maqueta-dia.jpg" style="width: 100px;height:100%;object-fit:cover;"><div class="portfolio-overlay"><div class="portfolio-title"><span class="es">Maqueta · Leucotón</span><span class="en">Model · Leucotón</span></div><div class="portfolio-loc">Manquemapu · Los Lagos</div></div></div>
     <div class="portfolio-item"><img src="img/maqueta-noche.jpg" style="width:100%;height:100%;object-fit:cover;"><div class="portfolio-overlay"><div class="portfolio-title"><span class="es">Maqueta Nocturna · Leucotón</span><span class="en">Night Model · Leucotón</span></div><div class="portfolio-loc">Manquemapu · Los Lagos</div></div></div>
     <div class="portfolio-item tall"><img src="img/obra-estructura.jpg" style="width:100%;height:100%;object-fit:cover;"><div class="portfolio-overlay"><div class="portfolio-title"><span class="es">Estructura · Leucotón</span><span class="en">Structure · Leucotón</span></div><div class="portfolio-loc">Manquemapu · Los Lagos</div></div></div>
     <div class="portfolio-item"><img src="img/obra-madera.jpg" style="width:100%;height:100%;object-fit:cover;"><div class="portfolio-overlay"><div class="portfolio-title"><span class="es">Quincho · Leucotón</span><span class="en">Quincho · Leucotón</span></div><div class="portfolio-loc">Manquemapu · Los Lagos</div></div></div>
     <div class="portfolio-item"><img src="img/obra-ladrillo.jpg" style="width:100%;height:100%;object-fit:cover;"><div class="portfolio-overlay"><div class="portfolio-title"><span class="es">Detalle · Leucotón</span><span class="en">Detail · Leucotón</span></div><div class="portfolio-loc">Manquemapu · Los Lagos</div></div></div>
-    <div class="portfolio-item"><img src="img/obra-bn.jpg" style="width:100%;height:100%;object-fit:cover;"><div class="portfolio-overlay"><div class="portfolio-title"><span class="es">Fundaciones · Leucotón</span><span class="en">Foundations · Leucotón</span></div><div class="portfolio-loc">Manquemapu · Los Lagos</div></div></div>
+    <div class="portfolio-item"><img src="img/obra-bn.jpg" style="width:100%;height:80%;object-fit:cover;"><div class="portfolio-overlay"><div class="portfolio-title"><span class="es">Fundaciones · Leucotón</span><span class="en">Foundations · Leucotón</span></div><div class="portfolio-loc">Manquemapu · Los Lagos</div></div></div>
   </div>
 </section>
 
@@ -1333,10 +1362,11 @@
 <footer>
   <img src="mundo.jpg" alt="" class="footer-globe">
   <div class="footer-name">
-    Loreto Salazar Arquitectura y Planificación Territorial EIRL · RUT 78.351.959-3
+    Loreto Salazar Arquitectura y Planificación Territorial EIRL 
+    · RUT 78.351.959-3
   </div>
   <div class="footer-patent">
-    <span class="es">Patente</span><span class="en">License</span> N°300833 · lsalazarsalina@gmail.com
+    <span class="es">Patente</span><span class="en">License</span> N°300833 · lsalazarsalina@gmail.com 
   </div>
 </footer>
 
@@ -1345,16 +1375,18 @@
     es: {
       tag: 'Arquitectura · Territorio · Chile',
       h1: 'El territorio<br>es mi <em>escuela.</em>',
-      desc: 'Arquitectura rural, bioconstrucción y planificación territorial en Chile. Desde el territorio, y ahora desde el mar.',
+      desc: 'Arquitectura rural y urbana, bioconstrucción y planificación territorial en Chile. Desde el territorio, y ahora desde el mar.',
       btn1: 'Ver servicios',
+      btnBlog: 'Ver Blog',
       btn2: 'Plantillas DOM',
-      scroll: 'Desplázate para explorar'
+      scroll: 'Scroll para explorar'
     },
     en: {
       tag: 'Architecture · Territory · Chile',
       h1: 'The territory<br>is my <em>school.</em>',
       desc: 'Rural architecture, bioconstruction and territorial planning across Chile. From the land, and now from the sea.',
       btn1: 'View services',
+      btnBlog: 'Read Blog',
       btn2: 'DOM Templates',
       scroll: 'Scroll to explore'
     }
@@ -1372,7 +1404,8 @@
     document.querySelector('.hero-desc').innerHTML = t.desc;
     const btns = document.querySelectorAll('.hero-cta a');
     btns[0].textContent = t.btn1;
-    btns[1].textContent = t.btn2;
+    btns[1].textContent = t.btnBlog;
+    btns[2].textContent = t.btn2;
     document.querySelector('.hero-scroll span').textContent = t.scroll;
 
     // Show/hide all .es and .en elements throughout the page
