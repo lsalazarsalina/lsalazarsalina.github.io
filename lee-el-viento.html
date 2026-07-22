@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lee el viento / Read the wind</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#FFFFFF;
+    --card:#F7F4EE;
+    --ink:#140D08;
+    --muted:#4A3826;
+    --coffee:#3B2410;
+    --terracota:#B5451D;
+    --ocre:#A67511;
+    --musgo:#4B6B1F;
+    --burdeo:#6B0F1A;
+    --border: rgba(20,13,8,0.14);
+  }
+  body.theme-dark {
+    --bg:#0A0806;
+    --card:#18130E;
+    --ink:#F5EFE4;
+    --muted:#B9A98F;
+    --coffee:#D9AE6E;
+    --terracota:#E8703D;
+    --ocre:#E8B23D;
+    --musgo:#8FB84A;
+    --burdeo:#FF5266;
+    --border: rgba(245,239,228,0.14);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'DM Sans', sans-serif;
+    font-weight:400;
+    min-height:100vh;
+    padding:24px 16px 60px;
+    transition:background .35s ease, color .35s ease;
+  }
+  .wrap{max-width:520px; margin:0 auto;}
+
+  .topbar{display:flex; justify-content:center; align-items:center; gap:10px; margin-bottom:10px;}
+  .theme-toggle{
+    background:transparent;
+    border:1px solid var(--border);
+    color:var(--muted);
+    font-family:'DM Sans', sans-serif;
+    font-size:10.5px;
+    font-weight:500;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:7px 14px;
+    border-radius:20px;
+    cursor:pointer;
+  }
+  .theme-toggle:hover{border-color:var(--terracota); color:var(--terracota);}
+
+  .eyebrow{
+    font-family:'DM Sans', sans-serif;
+    font-weight:500;
+    font-size:11px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--terracota);
+    text-align:center;
+    margin-bottom:6px;
+  }
+  .eyebrow .en{opacity:0.6; font-style:italic; text-transform:none; letter-spacing:0.02em; font-weight:400;}
+  h1{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:34px;
+    text-align:center;
+    margin:0 0 2px;
+    color:var(--ink);
+  }
+  h1 .en{
+    display:block;
+    font-size:16px;
+    font-style:italic;
+    font-weight:300;
+    color:var(--muted);
+    margin-top:-2px;
+  }
+  .sub{
+    text-align:center;
+    font-size:14px;
+    font-weight:300;
+    color:var(--muted);
+    margin:14px 0 26px;
+    line-height:1.6;
+  }
+  .sub em{color:var(--terracota); font-style:italic;}
+  .sub .en{display:block; margin-top:8px; font-size:12.5px; font-style:italic; opacity:0.85;}
+
+  .instrument{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:2px;
+    padding:24px 18px 20px;
+    box-shadow:0 16px 40px rgba(0,0,0,0.35);
+    transition:background .35s ease, border-color .35s ease;
+  }
+  .compass-holder{
+    position:relative;
+    width:100%;
+    max-width:320px;
+    margin:0 auto 14px;
+    aspect-ratio:1/1;
+    touch-action:none;
+  }
+  svg{width:100%; height:100%; display:block;}
+  .drag-hint{
+    text-align:center;
+    font-family:'DM Sans', sans-serif;
+    font-size:10.5px;
+    font-weight:500;
+    letter-spacing:0.04em;
+    color:var(--ocre);
+    margin:-4px 0 4px;
+  }
+  .drag-hint .en{display:block; opacity:0.65; margin-top:2px; font-weight:400;}
+
+  .readout{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin:18px 0 16px;
+  }
+  .cell{
+    background:var(--bg);
+    border:1px solid var(--border);
+    border-radius:2px;
+    padding:12px 14px;
+  }
+  .cell .k{
+    font-family:'DM Sans', sans-serif;
+    font-weight:500;
+    font-size:9.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:4px;
+  }
+  .cell .k .en{display:block; font-style:italic; opacity:0.7; text-transform:none; font-weight:400;}
+  .cell .v{
+    font-family:'Cormorant Garamond', serif;
+    font-size:21px;
+    font-weight:600;
+    color:var(--ink);
+  }
+  .cell .v.en{
+    font-family:'DM Sans', sans-serif;
+    font-size:12.5px;
+    font-weight:300;
+    font-style:italic;
+    color:var(--muted);
+    margin-top:2px;
+  }
+  .cell.wide{grid-column:1/-1;}
+  .cell.warn .v{color:var(--burdeo);}
+  .cell.ok .v{color:var(--musgo);}
+
+  .action-line{
+    font-size:14.5px;
+    font-weight:400;
+    line-height:1.5;
+    color:var(--ink);
+  }
+  .action-line .en{
+    display:block;
+    font-size:13px;
+    font-weight:300;
+    font-style:italic;
+    color:var(--muted);
+    margin-top:4px;
+  }
+
+  .telltale{
+    display:flex; align-items:center; gap:8px; margin-top:10px;
+  }
+  .ribbon{
+    width:26px; height:4px; border-radius:2px;
+    background:var(--coffee);
+    transform-origin:left center;
+    transition:transform .25s ease;
+  }
+  .ribbon-label{font-family:'DM Sans', sans-serif; font-size:10px; color:var(--muted);}
+  .ribbon-label .en{display:block; font-style:italic; opacity:0.75;}
+
+  .practice-toggle{
+    width:100%;
+    margin-top:18px;
+    background:var(--terracota);
+    border:none;
+    color:#fff;
+    font-family:'DM Sans', sans-serif;
+    font-weight:500;
+    font-size:12px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:15px;
+    border-radius:50px;
+    cursor:pointer;
+    transition:background .2s, transform .2s;
+    text-align:center;
+    line-height:1.5;
+    animation:floatPulse 2.4s ease-in-out infinite;
+  }
+  @keyframes floatPulse{
+    0%,100%{ box-shadow:0 10px 26px rgba(234,255,7,0.5); }
+    50%{ box-shadow:0 16px 38px rgba(234,255,7,0.32); }
+  }
+  .practice-toggle .en{display:block; font-size:10.5px; font-style:italic; opacity:0.85; text-transform:none; font-weight:400;}
+  .practice-toggle:hover{background:var(--burdeo); animation-play-state:paused; transform:translateY(-2px);}
+  .practice-toggle.active{background:var(--coffee); animation:none; box-shadow:none;}
+  body.theme-dark .practice-toggle{color:#140D08;}
+  body.theme-dark .practice-toggle.active{color:#F5EFE4;}
+
+  .practice-panel{
+    margin-top:16px;
+    padding-top:16px;
+    border-top:1px dashed var(--border);
+    display:none;
+  }
+  .practice-panel.show{display:block;}
+  .score{
+    font-family:'DM Sans', sans-serif;
+    font-size:11px;
+    color:var(--muted);
+    text-align:right;
+    margin-bottom:10px;
+  }
+  .score b{color:var(--terracota);}
+  .quiz-q{font-size:14.5px; margin-bottom:2px; color:var(--ink); line-height:1.4;}
+  .quiz-q .en{display:block; font-size:12.5px; font-weight:300; font-style:italic; color:var(--muted); margin:4px 0 12px;}
+  .options{display:grid; gap:8px; margin-bottom:12px;}
+  .opt{
+    text-align:left;
+    background:var(--bg);
+    border:1px solid var(--border);
+    color:var(--ink);
+    padding:11px 13px;
+    border-radius:2px;
+    font-family:'DM Sans', sans-serif;
+    font-size:14px;
+    cursor:pointer;
+  }
+  .opt .en{display:block; font-size:11.5px; font-weight:300; font-style:italic; color:var(--muted); margin-top:2px;}
+  .opt:active{transform:scale(0.99);}
+  .opt.correct{border-color:var(--musgo); background:var(--musgo); color:#fff;}
+  .opt.correct .en{color:rgba(255,255,255,0.9);}
+  .opt.wrong{border-color:var(--burdeo); background:var(--burdeo); color:#fff;}
+  .opt.wrong .en{color:rgba(255,255,255,0.9);}
+  .feedback{
+    font-size:13.5px;
+    line-height:1.5;
+    color:var(--muted);
+    background:var(--bg);
+    border-left:3px solid var(--coffee);
+    padding:10px 12px;
+    border-radius:0 2px 2px 0;
+    margin-bottom:12px;
+    display:none;
+  }
+  .feedback .en{display:block; font-style:italic; font-weight:300; margin-top:6px; opacity:0.85;}
+  .feedback.show{display:block;}
+  .next-btn{
+    width:100%;
+    background:var(--ink);
+    color:var(--bg);
+    border:none;
+    padding:11px;
+    border-radius:2px;
+    font-family:'DM Sans', sans-serif;
+    font-weight:500;
+    font-size:12px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    cursor:pointer;
+    display:none;
+  }
+  .next-btn.show{display:block;}
+
+  .ref{
+    margin-top:18px;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:4px;
+  }
+  .ref-item{
+    text-align:center;
+    padding:8px 2px;
+    border-radius:2px;
+    font-family:'DM Sans', sans-serif;
+    font-weight:500;
+    font-size:9px;
+    letter-spacing:0.01em;
+    color:var(--muted);
+    border:1px solid transparent;
+    line-height:1.3;
+  }
+  .ref-item .en{display:block; font-size:8px; font-style:italic; opacity:0.75; font-weight:400;}
+  .ref-item.active{
+    color:#fff;
+  }
+  .ref-item.active .en{color:#fff; opacity:0.85;}
+  footer{
+    text-align:center;
+    font-family:'DM Sans', sans-serif;
+    font-size:10px;
+    letter-spacing:0.12em;
+    color:var(--muted);
+    opacity:0.6;
+    margin-top:22px;
+  }
+</style>
+</head>
+<body class="theme-dark">
+<div class="wrap">
+  <div class="topbar">
+    <button class="theme-toggle" id="themeToggle">● Noche / Night</button>
+  </div>
+  <div class="eyebrow">Silver Harmony <span class="en">· onboard instrument</span></div>
+  <h1>Lee el viento<span class="en">Read the wind</span></h1>
+  <p class="sub">Arrastra la flecha del viento alrededor del bote. Siente el ángulo antes de mirar el nombre — <em>el cuerpo aprende esto más rápido que la palabra.</em>
+  <span class="en">Drag the wind arrow around the boat. Feel the angle before you look at the name — the body learns this faster than the word.</span></p>
+
+  <div class="instrument">
+    <div class="compass-holder" id="compassHolder">
+      <svg viewBox="0 0 300 300" id="compassSvg">
+        <circle cx="150" cy="150" r="130" fill="none" stroke="rgba(245,239,228,0.18)" stroke-width="1" id="outerRing"/>
+        <g id="zoneArcs"></g>
+        <g transform="translate(150,150)">
+          <path d="M0,-38 L14,20 Q0,34 -14,20 Z" fill="none" stroke="#F5EFE4" stroke-width="2" opacity="0.85" id="boatShape"/>
+          <line x1="0" y1="-38" x2="0" y2="30" stroke="#F5EFE4" stroke-width="1" opacity="0.35" id="boatLine"/>
+        </g>
+        <g id="windPointer" transform="translate(150,150) rotate(30)">
+          <line x1="0" y1="0" x2="0" y2="-118" stroke="#D9AE6E" stroke-width="3" stroke-linecap="round" id="pointerLine"/>
+          <path d="M0,-118 L-8,-102 L8,-102 Z" fill="#D9AE6E" id="pointerHead"/>
+          <circle cx="0" cy="-102" r="13" fill="#18130E" stroke="#D9AE6E" stroke-width="2.5" style="cursor:grab;" id="pointerKnob"/>
+        </g>
+        <circle cx="150" cy="150" r="4" fill="#E8703D"/>
+      </svg>
+    </div>
+    <div class="drag-hint">◈ arrastra el punto — el bote siempre apunta hacia arriba<span class="en">◈ drag the point — the boat always points up</span></div>
+
+    <div class="readout">
+      <div class="cell">
+        <div class="k">Ángulo al viento<span class="en">Wind angle</span></div>
+        <div class="v" id="angleVal">30°</div>
+      </div>
+      <div class="cell" id="zoneCell">
+        <div class="k">Punto de vela<span class="en">Point of sail</span></div>
+        <div class="v" id="zoneName">Ceñida</div>
+        <div class="v en" id="zoneNameEn">close hauled</div>
+      </div>
+      <div class="cell wide" id="actionCell">
+        <div class="k">Qué hacer con la vela<span class="en">What to do with the sail</span></div>
+        <div class="action-line">
+          <span id="actionTextEs">Vela bien adentro, casi al centro del bote.</span>
+          <span class="en" id="actionTextEn">Sail trimmed in tight, close to centerline.</span>
+        </div>
+        <div class="telltale">
+          <div class="ribbon" id="ribbon"></div>
+          <span class="ribbon-label">
+            <span id="ribbonLabelEs">telltale: pegada, sin flamear</span>
+            <span class="en" id="ribbonLabelEn">telltale: tight, not luffing</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ref" id="refStrip"></div>
+
+    <button class="practice-toggle" id="practiceToggle">Modo práctica<span class="en">Practice mode</span></button>
+
+    <div class="practice-panel" id="practicePanel">
+      <div class="score">racha/streak: <b id="streakVal">0</b> · respondidas/answered: <b id="answeredVal">0</b></div>
+      <div class="quiz-q" id="quizQ">El viento te llega a 90° de la proa. ¿En qué punto de vela estás?
+        <span class="en" id="quizQEn">The wind hits you at 90° off the bow. What point of sail are you on?</span>
+      </div>
+      <div class="options" id="quizOptions"></div>
+      <div class="feedback" id="quizFeedback"></div>
+      <button class="next-btn" id="nextBtn">Siguiente ángulo → / Next angle →</button>
+    </div>
+  </div>
+  <footer>LEE EL VIENTO · SILVER HARMONY</footer>
+</div>
+
+<script>
+const zones = [
+  {min:0, max:20, name:'Zona muerta', nameEn:'No-go zone', colorVar:'--burdeo',
+   actionEs:'No se puede navegar aquí. La vela flamea completa — cae unos grados hacia un lado hasta que llene.',
+   actionEn:"You can't sail here. The sail luffs completely — bear away a few degrees until it fills.",
+   telltaleEs:'flameando ambos lados', telltaleEn:'luffing on both sides', ribbonAngle:70, warn:true},
+  {min:20, max:50, name:'Ceñida', nameEn:'Close hauled', colorVar:'--coffee',
+   actionEs:'Vela bien adentro, casi al centro del bote. Si empieza a flamear por el borde de ataque, ajusta más adentro o cae un poco.',
+   actionEn:'Sail trimmed in tight, close to the centerline. If it starts luffing at the leading edge, trim in more or bear away slightly.',
+   telltaleEs:'pegada, al límite del flameo', telltaleEn:'tight, right at the edge of luffing', ribbonAngle:15},
+  {min:50, max:100, name:'Través', nameEn:'Beam reach', colorVar:'--musgo',
+   actionEs:"Vela a medio camino hacia afuera. El punto más rápido y estable — el bote 'camina solo'.",
+   actionEn:"Sail eased about halfway out. The fastest, most stable point of sail — the boat 'sails itself'.",
+   telltaleEs:'estirada y firme', telltaleEn:'streaming straight and steady', ribbonAngle:45},
+  {min:100, max:150, name:'Largo', nameEn:'Broad reach', colorVar:'--ocre',
+   actionEs:'Suelta bastante la vela hacia afuera. Vas rápido y cómoda, pero mira igual el telltale.',
+   actionEn:'Ease the sail well out. Fast and comfortable, but still watch the telltale.',
+   telltaleEs:'estirada, algo más suelta', telltaleEn:'streaming, a bit looser', ribbonAngle:80},
+  {min:150, max:180, name:'Empopada', nameEn:'Running', colorVar:'--terracota',
+   actionEs:'Vela casi perpendicular al bote. Ojo con la trasluchada accidental — mantén la mano en la escota.',
+   actionEn:'Sail nearly perpendicular to the boat. Watch for an accidental jibe — keep a hand on the sheet.',
+   telltaleEs:'floja, cuidado con jibe', telltaleEn:'loose, watch for the jibe', ribbonAngle:100, warn:true},
+];
+
+function cssVar(name){
+  return getComputedStyle(document.body).getPropertyValue(name).trim();
+}
+
+function zoneFor(angle){
+  const a = Math.min(180, Math.max(0, angle));
+  return zones.find(z => a >= z.min && a < z.max) || zones[zones.length-1];
+}
+
+const svg = document.getElementById('compassSvg');
+const zoneArcsG = document.getElementById('zoneArcs');
+const refStrip = document.getElementById('refStrip');
+
+function describeArc(cx, cy, r, startAngle, endAngle){
+  const toRad = d => (d-90) * Math.PI/180;
+  const x1 = cx + r*Math.cos(toRad(startAngle));
+  const y1 = cy + r*Math.sin(toRad(startAngle));
+  const x2 = cx + r*Math.cos(toRad(endAngle));
+  const y2 = cy + r*Math.sin(toRad(endAngle));
+  const largeArc = endAngle-startAngle <= 180 ? 0 : 1;
+  return `M${x1},${y1} A${r},${r} 0 ${largeArc} 1 ${x2},${y2}`;
+}
+
+function buildArcs(){
+  zoneArcsG.innerHTML = '';
+  zones.forEach(z=>{
+    const c = cssVar(z.colorVar);
+    const pathR = document.createElementNS('http://www.w3.org/2000/svg','path');
+    pathR.setAttribute('d', describeArc(150,150,130, z.min, z.max));
+    pathR.setAttribute('stroke', c);
+    pathR.setAttribute('stroke-width','11');
+    pathR.setAttribute('fill','none');
+    pathR.setAttribute('opacity','0.95');
+    zoneArcsG.appendChild(pathR);
+    const pathL = document.createElementNS('http://www.w3.org/2000/svg','path');
+    pathL.setAttribute('d', describeArc(150,150,130, -z.min, -z.max));
+    pathL.setAttribute('stroke', c);
+    pathL.setAttribute('stroke-width','11');
+    pathL.setAttribute('fill','none');
+    pathL.setAttribute('opacity','0.95');
+    zoneArcsG.appendChild(pathL);
+  });
+}
+buildArcs();
+
+zones.forEach(z=>{
+  const refEl = document.createElement('div');
+  refEl.className='ref-item';
+  refEl.dataset.name=z.name;
+  refEl.dataset.colorVar=z.colorVar;
+  refEl.innerHTML = z.name + '<span class="en">'+z.nameEn+'</span>';
+  refStrip.appendChild(refEl);
+});
+
+const windPointer = document.getElementById('windPointer');
+const pointerLine = document.getElementById('pointerLine');
+const pointerHead = document.getElementById('pointerHead');
+const pointerKnob = document.getElementById('pointerKnob');
+const angleVal = document.getElementById('angleVal');
+const zoneName = document.getElementById('zoneName');
+const zoneNameEn = document.getElementById('zoneNameEn');
+const actionTextEs = document.getElementById('actionTextEs');
+const actionTextEn = document.getElementById('actionTextEn');
+const zoneCell = document.getElementById('zoneCell');
+const actionCell = document.getElementById('actionCell');
+const ribbon = document.getElementById('ribbon');
+const ribbonLabelEs = document.getElementById('ribbonLabelEs');
+const ribbonLabelEn = document.getElementById('ribbonLabelEn');
+const boatShape = document.getElementById('boatShape');
+const boatLine = document.getElementById('boatLine');
+
+let currentAngle = 30;
+let side = 1;
+
+function syncSvgTheme(){
+  const ink = cssVar('--ink');
+  const cardBg = cssVar('--card');
+  boatShape.setAttribute('stroke', ink);
+  boatLine.setAttribute('stroke', ink);
+  pointerKnob.setAttribute('fill', cardBg);
+}
+
+function render(angle){
+  const z = zoneFor(angle);
+  const c = cssVar(z.colorVar);
+  const displayRotation = side * angle;
+  windPointer.setAttribute('transform', `translate(150,150) rotate(${displayRotation})`);
+  pointerLine.setAttribute('stroke', c);
+  pointerHead.setAttribute('fill', c);
+  pointerKnob.setAttribute('stroke', c);
+  angleVal.textContent = Math.round(angle) + '°';
+  zoneName.textContent = z.name;
+  zoneNameEn.textContent = z.nameEn;
+  actionTextEs.textContent = z.actionEs;
+  actionTextEn.textContent = z.actionEn;
+  ribbonLabelEs.textContent = 'telltale: ' + z.telltaleEs;
+  ribbonLabelEn.textContent = 'telltale: ' + z.telltaleEn;
+  ribbon.style.transform = `rotate(${z.ribbonAngle}deg)`;
+  ribbon.style.background = c;
+  zoneCell.classList.toggle('warn', !!z.warn);
+  zoneCell.classList.toggle('ok', !z.warn && z.name==='Través');
+  actionCell.classList.toggle('warn', !!z.warn);
+  [...refStrip.children].forEach(el=>{
+    const isActive = el.dataset.name === z.name;
+    el.classList.toggle('active', isActive);
+    el.style.background = isActive ? c : 'transparent';
+    el.style.borderColor = isActive ? c : 'transparent';
+  });
+}
+render(currentAngle);
+syncSvgTheme();
+
+const holder = document.getElementById('compassHolder');
+let dragging = false;
+
+function angleFromEvent(clientX, clientY){
+  const rect = svg.getBoundingClientRect();
+  const cx = rect.left + rect.width/2;
+  const cy = rect.top + rect.height/2;
+  const dx = clientX - cx;
+  const dy = clientY - cy;
+  let deg = Math.atan2(dx, -dy) * 180/Math.PI;
+  side = deg < 0 ? -1 : 1;
+  let a = Math.abs(deg);
+  if(a>180) a=180;
+  return a;
+}
+
+function startDrag(e){ dragging = true; moveDrag(e); }
+function moveDrag(e){
+  if(!dragging) return;
+  const point = e.touches ? e.touches[0] : e;
+  currentAngle = angleFromEvent(point.clientX, point.clientY);
+  render(currentAngle);
+  e.preventDefault();
+}
+function endDrag(){ dragging = false; }
+
+holder.addEventListener('mousedown', startDrag);
+window.addEventListener('mousemove', moveDrag);
+window.addEventListener('mouseup', endDrag);
+holder.addEventListener('touchstart', startDrag, {passive:false});
+window.addEventListener('touchmove', moveDrag, {passive:false});
+window.addEventListener('touchend', endDrag);
+
+const themeToggle = document.getElementById('themeToggle');
+themeToggle.addEventListener('click', ()=>{
+  const isDark = document.body.classList.toggle('theme-dark');
+  themeToggle.textContent = isDark ? '● Noche / Night' : '☀ Día / Day';
+  syncSvgTheme();
+  buildArcs();
+  render(currentAngle);
+});
+
+const practiceToggle = document.getElementById('practiceToggle');
+const practicePanel = document.getElementById('practicePanel');
+const quizQ = document.getElementById('quizQ');
+const quizQEn = document.getElementById('quizQEn');
+const quizOptions = document.getElementById('quizOptions');
+const quizFeedback = document.getElementById('quizFeedback');
+const nextBtn = document.getElementById('nextBtn');
+const streakVal = document.getElementById('streakVal');
+const answeredVal = document.getElementById('answeredVal');
+
+let streak = 0, answered = 0;
+let quizAngle = 0, quizZone = null;
+
+function newQuiz(){
+  quizAngle = Math.round(Math.random()*175)+2;
+  quizZone = zoneFor(quizAngle);
+  render(quizAngle);
+  zoneName.textContent = '—';
+  zoneNameEn.textContent = '';
+  actionTextEs.textContent = 'Responde abajo antes de mirar aquí.';
+  actionTextEn.textContent = 'Answer below before you look here.';
+  ribbonLabelEs.textContent = 'telltale: (respondiendo…)';
+  ribbonLabelEn.textContent = 'telltale: (answering…)';
+
+  quizQ.childNodes[0].textContent = `El viento te llega a ${quizAngle}° de la proa. ¿En qué punto de vela estás? `;
+  quizQEn.textContent = `The wind hits you at ${quizAngle}° off the bow. What point of sail are you on?`;
+
+  const options = zones.map(z=>({name:z.name, nameEn:z.nameEn}));
+  for(let i=options.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [options[i],options[j]]=[options[j],options[i]];
+  }
+  quizOptions.innerHTML='';
+  quizFeedback.classList.remove('show');
+  nextBtn.classList.remove('show');
+  options.forEach(opt=>{
+    const btn = document.createElement('button');
+    btn.className='opt';
+    btn.innerHTML = opt.name + '<span class="en">'+opt.nameEn+'</span>';
+    btn.onclick = () => answerQuiz(opt.name, btn);
+    quizOptions.appendChild(btn);
+  });
+}
+
+function answerQuiz(chosen, btnEl){
+  const correct = chosen === quizZone.name;
+  [...quizOptions.children].forEach(b=>{
+    b.onclick=null;
+    if(b.textContent.startsWith(quizZone.name)) b.classList.add('correct');
+    if(b===btnEl && !correct) b.classList.add('wrong');
+  });
+  answered++;
+  streak = correct ? streak+1 : 0;
+  streakVal.textContent = streak;
+  answeredVal.textContent = answered;
+  quizFeedback.innerHTML = `${quizZone.name} (${quizZone.nameEn}) — ${quizZone.actionEs}<span class="en">${quizZone.actionEn}</span>`;
+  quizFeedback.classList.add('show');
+  nextBtn.classList.add('show');
+  render(quizAngle);
+}
+
+nextBtn.addEventListener('click', newQuiz);
+
+practiceToggle.addEventListener('click', ()=>{
+  const isActive = practicePanel.classList.toggle('show');
+  practiceToggle.classList.toggle('active', isActive);
+  if(isActive){
+    practiceToggle.innerHTML = 'Cerrar práctica<span class="en">Close practice</span>';
+    newQuiz();
+  } else {
+    practiceToggle.innerHTML = 'Modo práctica<span class="en">Practice mode</span>';
+    render(currentAngle);
+  }
+});
+</script>
+</body>
+</html>
