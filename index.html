@@ -17,8 +17,8 @@
     --muted: #000000;
     --accent: #2d3a4a;
     --border: #f6f3ed;
-    --blog-accent: #e85100e0;
-    --blog-accent-light: #ffea00a6;
+    --blog-accent: #b8b3b9fc;
+    --blog-accent-light: #55ff00de;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -112,7 +112,7 @@
     padding: 52px 4em 5rem;
     position: relative;
     overflow: hidden;
-    background: url('img/loreto-mar.jpg') center 40% / cover no-repeat;
+    background: url('img/loreto-mar.jpg') center 70% / cover no-repeat;
   }
 
   .hero::after {
@@ -646,8 +646,8 @@
   }
 
   @keyframes floatPulse {
-    0%, 100% { box-shadow: 0 10px 26px rgba(234, 255, 7, 0.907); transform: translateY(0); }
-    50% { box-shadow: 0 16px 40px rgba(218, 255, 9, 0.75); transform: translateY(-6px); }
+    0%, 100% { box-shadow: 0 10px 26px rgba(140, 140, 140, 0.7); transform: translateY(0); }
+    50% { box-shadow: 0 16px 40px rgba(120, 120, 120, 0.6); transform: translateY(-6px); }
   }
 
   .blog-coming {
@@ -894,7 +894,10 @@
     .blog-post { grid-template-columns: 1fr; gap: 0.5rem; }
     .nav-links { display: none; }
     .blog-float-btn .blog-float-text { display: none; }
-    .blog-float-btn { padding: 1.1rem; }
+    .blog-float-btn { padding: 0.75rem; font-size: 0.85rem; }
+    .hero { min-height: 72vh; padding: 30px 1.5em 3rem; }
+    .hero-cta { gap: 0.75rem; }
+    .hero-cta a { padding: 0.6rem 1.2rem; font-size: 0.7rem; }
   }
 
   /* ANIMATIONS */
@@ -935,6 +938,7 @@
 <!-- HERO -->
 <div class="hero">
   <div class="hero-inner">
+    <img src="img/logo-refugio-nomada.png" alt="Refugio Nómada" style="width:64px;height:64px;object-fit:contain;margin-bottom:1rem;">
     <div class="hero-tag">
       Arquitectura · Territorio · Chile
     </div>
@@ -1135,6 +1139,18 @@
 
   <div class="blog-grid">
     
+<a href="#post-3" class="blog-post" onclick="document.getElementById('post-3').style.display='block';return false;">
+      <div class="blog-date">Julio<br>2026</div>
+      <div>
+        <div class="blog-category es">Herramienta · Interactivo</div>
+        <div class="blog-category en">Tool · Interactive</div>
+        <div class="blog-title es">Lee el viento</div>
+        <div class="blog-title en">Read the wind</div>
+        <div class="blog-excerpt es">Un instrumento interactivo para entrenar el ojo y el cuerpo: arrastra el viento alrededor del bote y aprende a reconocer cada punto de vela, con modo de práctica incluido.</div>
+        <div class="blog-excerpt en">An interactive instrument to train the eye and the body: drag the wind around the boat and learn to recognize each point of sail, with a built-in practice mode.</div>
+      </div>
+    </a>
+
 <a href="#post-2" class="blog-post" onclick="document.getElementById('post-2').style.display='block';return false;">
       <div class="blog-date">Julio<br>2026</div>
       <div>
@@ -1217,6 +1233,25 @@
     </div>
   </div></div>
 
+<div id="post-3" style="display:none; margin-top:3rem;">
+  <button onclick="document.getElementById('post-3').style.display='none'" style="background:none;border:1px solid var(--border);padding:0.5rem 1.2rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;letter-spacing:0.06em;cursor:pointer;margin-bottom:2.5rem;color:var(--mid);">← <span class="es">Volver al blog</span><span class="en">Back to blog</span></button>
+
+  <div class="blog-category es" style="margin-bottom:0.8rem;font-size:0.78rem;letter-spacing:0.15em;">Herramienta · Interactivo</div>
+  <div class="blog-category en" style="margin-bottom:0.8rem;font-size:0.78rem;letter-spacing:0.15em;">Tool · Interactive</div>
+
+  <h3 class="es" style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;margin-bottom:0.3rem;">Lee el viento</h3>
+  <h3 class="en" style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;margin-bottom:0.3rem;">Read the wind</h3>
+  <p style="font-size:0.85rem;color:var(--mid);margin-bottom:2rem;">Loreto Salazar Salina · Arquitecta N°300833 · Julio 2026</p>
+
+  <p class="es">Este instrumento nació de una duda muy concreta a bordo de Silver Harmony: cómo aprender a confiar en lo que el cuerpo ya siente antes de que la cabeza le ponga nombre. Arrastra la flecha de viento alrededor del bote, siente el ángulo, y solo después mira qué punto de vela es. Tiene un modo de práctica para entrenar la lectura sin depender de que alguien más te lo diga.</p>
+  <p class="en">This instrument came out of a very concrete question aboard Silver Harmony: how to learn to trust what the body already feels before the mind names it. Drag the wind arrow around the boat, feel the angle, and only then check which point of sail it is. It includes a practice mode to train that reading without depending on someone else naming it for you.</p>
+
+  <a href="lee-el-viento.html" style="display:inline-block;background:var(--terra);color:white;padding:0.75rem 1.6rem;text-decoration:none;font-size:0.75rem;letter-spacing:0.05em;text-transform:uppercase;border-radius:2px;margin:1rem 0 0;">
+    <span class="es">Abrir el instrumento →</span>
+    <span class="en">Open the instrument →</span>
+  </a>
+</div>
+
 <div id="post-2" style="display:none; margin-top:3rem;">
   <button onclick="document.getElementById('post-2').style.display='none'" style="background:none;border:1px solid var(--border);padding:0.5rem 1.2rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;letter-spacing:0.06em;cursor:pointer;margin-bottom:2.5rem;color:var(--mid);">← <span class="es">Volver al blog</span><span class="en">Back to blog</span></button>
 
@@ -1270,11 +1305,6 @@
     <p style="font-size:0.78rem;color:var(--muted);text-align:center;margin-bottom:1.5rem;font-style:italic;">Running.</p>
     <p class="es">Correr en popa, con el viento empujando directo desde atrás, es la sensación más calma de toda la navegación — y, contradictoriamente, la que exige más atención, porque un descuido puede provocar una trasluchada. Me recuerda a una obra ya construida y entregada: tranquila por fuera, pero que sigue pidiendo mantención, cuidado, atención silenciosa por dentro.</p>
     <p class="en">Running, with the wind pushing straight from behind, is the calmest feeling in all of sailing — and, contradictorily, the one that demands the most attention, since a moment's carelessness can cause an accidental jibe. It reminds me of a finished, delivered building: calm on the outside, but still asking for maintenance, care, quiet attention on the inside.</p>
-
-    <a href="lee-el-viento.html" style="display:inline-block;background:var(--terra);color:white;padding:0.85rem 2rem;text-decoration:none;font-size:0.82rem;letter-spacing:0.06em;text-transform:uppercase;border-radius:2px;margin:0 0 2.5rem;">
-      <span class="es">Probar el instrumento interactivo →</span>
-      <span class="en">Try the interactive instrument →</span>
-    </a>
 
     <h4 class="es">El territorio es mi escuela</h4>
     <h4 class="en">The land is my school</h4>
@@ -1425,6 +1455,24 @@
 
   // Init on load
   setLang('es');
+
+  // Deep-link support: open the right post automatically if arriving via #post-1, #post-2, or #instrumento
+  (function(){
+    const hash = window.location.hash;
+    if(!hash) return;
+    let targetPost = null;
+    if(hash === '#post-1') targetPost = 'post-1';
+    if(hash === '#post-2') targetPost = 'post-2';
+    if(hash === '#post-3' || hash === '#instrumento') targetPost = 'post-3';
+    if(targetPost){
+      const el = document.getElementById(targetPost);
+      if(el) el.style.display = 'block';
+      setTimeout(()=>{
+        const scrollTarget = document.getElementById(hash.slice(1)) || el;
+        if(scrollTarget) scrollTarget.scrollIntoView({behavior:'smooth', block:'start'});
+      }, 50);
+    }
+  })();
 </script>
 
 </body>
