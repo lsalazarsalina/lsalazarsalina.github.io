@@ -17,7 +17,7 @@
     --muted: #000000;
     --accent: #2d3a4a;
     --border: #f6f3ed;
-    --blog-accent: #e85100e0;
+    --blog-accent: #4600e8e0;
     --blog-accent-light: #8a8a8aa6;
   }
 
@@ -562,14 +562,17 @@
     margin-top: 3rem;
   }
 
+  #blog .section-title { font-size: 2.6rem; }
+  #blog { padding-top: 5rem; padding-bottom: 4rem; }
+
   .blog-post {
     display: grid;
     grid-template-columns: 120px 1fr;
     gap: 2rem;
-    padding: 2rem 2rem;
+    padding: 2.5rem 2.5rem;
     background: white;
     border: 1px solid var(--border);
-    border-left: 4px solid var(--terra);
+    border-left: 5px solid var(--terra);
     border-radius: 4px;
     align-items: start;
     text-decoration: none;
@@ -603,7 +606,7 @@
 
   .blog-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.65rem;
+    font-size: 1.95rem;
     font-weight: 700;
     color: var(--dark);
     margin-bottom: 0.6rem;
@@ -611,7 +614,7 @@
   }
 
   .blog-excerpt {
-    font-size: 0.rem;
+    font-size: 0.95rem;
     color: var(--mid);
     line-height: 1.65;
   }
@@ -921,6 +924,7 @@
     <li><a href="#servicios"><span class="es">Servicios</span><span class="en">Services</span></a></li>
     <li><a href="#plantillas"><span class="es">Plantillas DOM</span><span class="en">DOM Templates</span></a></li>
     <li><a href="#blog">Blog</a></li>
+    <li><a href="#herramientas"><span class="es">Herramientas</span><span class="en">Tools</span></a></li>
     <li><a href="#portfolio"><span class="es">Portafolio</span><span class="en">Portfolio</span></a></li>
     <li><a href="#contacto"><span class="es">Contacto</span><span class="en">Contact</span></a></li>
   </ul>
@@ -938,7 +942,9 @@
 <!-- HERO -->
 <div class="hero">
   <div class="hero-inner">
-    <img src="img/logo-refugio-nomada.png" alt="Refugio Nómada" style="width:64px;height:64px;object-fit:contain;margin-bottom:1rem;">
+    <div style="display:inline-flex; align-items:center; justify-content:center; width:180px; height:180px; background:rgba(255,255,255,0.85); border-radius:50%; margin-bottom:1.25rem; padding:1rem; backdrop-filter:blur(2px);">
+      <img src="img/logo-refugio-nomada.png" alt="Refugio Nómada" style="width:100%;height:100%;object-fit:contain;">
+    </div>
     <div class="hero-tag">
       Arquitectura · Territorio · Chile
     </div>
@@ -1139,7 +1145,7 @@
 
   <div class="blog-grid">
     
-<a href="#post-3" class="blog-post" onclick="document.getElementById('post-3').style.display='block';return false;">
+<a href="#post-3" class="blog-post" target="_blank" rel="noopener">
       <div class="blog-date">Julio<br>2026</div>
       <div>
         <div class="blog-category es">Herramienta · Interactivo</div>
@@ -1151,7 +1157,7 @@
       </div>
     </a>
 
-<a href="#post-2" class="blog-post" onclick="document.getElementById('post-2').style.display='block';return false;">
+<a href="#post-2" class="blog-post" target="_blank" rel="noopener">
       <div class="blog-date">Julio<br>2026</div>
       <div>
         <div class="blog-category es">Bitácora · Nova Scotia</div>
@@ -1163,7 +1169,7 @@
       </div>
     </a>
 
-<a href="#post-1" class="blog-post" onclick="document.getElementById('post-1').style.display='block';return false;">
+<a href="#post-1" class="blog-post" target="_blank" rel="noopener">
       <div class="blog-date">Junio<br>2026</div>
       <div>
         <div class="blog-category es">Territorio · Normativa</div>
@@ -1322,7 +1328,36 @@
 
   </div>
 </div>
+</section>
 
+<hr class="section-divider">
+
+<section id="herramientas" style="max-width:1000px; padding:4rem 2rem 3rem;">
+  <div class="section-tag">Herramientas</div>
+  <h2 class="section-title">
+    <span class="es">Una <em>herramienta</em>, no solo un post.</span>
+    <span class="en">A <em>tool</em>, not just a post.</span>
+  </h2>
+  <p style="font-size:0.95rem;color:var(--mid);max-width:640px;margin:0.5rem 0 2.5rem;line-height:1.65;" class="es">Nació como una nota del blog, pero se ganó su propio espacio: un instrumento interactivo para entrenar el ojo y el cuerpo antes de confiar en ellos.</p>
+  <p style="font-size:0.95rem;color:var(--mid);max-width:640px;margin:0.5rem 0 2.5rem;line-height:1.65;" class="en">It started as a blog note, but earned its own space: an interactive instrument to train the eye and the body before you trust them.</p>
+
+  <div style="display:grid; grid-template-columns:1fr; gap:1.5rem; background:white; border:1px solid var(--border); border-left:5px solid var(--terra); border-radius:4px; padding:2.5rem;">
+    <div class="blog-category es">Instrumento · Interactivo</div>
+    <div class="blog-category en">Instrument · Interactive</div>
+    <h3 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--dark);margin:0;" class="es">Lee el viento</h3>
+    <h3 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--dark);margin:0;" class="en">Read the wind</h3>
+    <p style="font-size:0.95rem;color:var(--mid);line-height:1.65;margin:0;" class="es">Arrastra el viento alrededor del bote, siente el ángulo antes de leer el nombre, y entrena con el modo práctica hasta que la lectura sea instinto y no memoria.</p>
+    <p style="font-size:0.95rem;color:var(--mid);line-height:1.65;margin:0;" class="en">Drag the wind around the boat, feel the angle before you read its name, and train with practice mode until the reading becomes instinct instead of memory.</p>
+    <a href="lee-el-viento.html" target="_blank" rel="noopener" class="btn-primary" style="justify-self:start; display:inline-block; width:fit-content;">
+      <span class="es">Abrir el instrumento →</span>
+      <span class="en">Open the instrument →</span>
+    </a>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section id="portfolio" style="max-width:1200px; padding:4rem 2rem 3rem;">
   <div class="portfolio-group-title es">Modelados 3D & Proyectos</div>
   <div class="portfolio-group-title en">3D Models & Projects</div>
   <div class="portfolio-grid">
