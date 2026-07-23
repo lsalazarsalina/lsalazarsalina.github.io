@@ -106,10 +106,12 @@
 
   /* HERO */
   .hero {
-    min-height: 120vh;
+    min-height: 75vh;
     display: flex;
     align-items: flex-end;
     padding: 52px 4em 5rem;
+    max-width: 1200px;
+    margin: 0 auto;
     position: relative;
     overflow: hidden;
     background: url('img/loreto-mar.jpg') center 70% / cover no-repeat;
@@ -152,8 +154,8 @@
   }
 
   .hero-logo {
-    width: 140px;
-    height: 140px;
+    width: 170px;
+    height: 170px;
     margin-bottom: 1.25rem;
     flex-shrink: 0;
   }
@@ -961,7 +963,7 @@
     .nav-links { display: none; }
     .blog-float-btn .blog-float-text { display: none; }
     .blog-float-btn { padding: 0.75rem; font-size: 0.85rem; }
-    .hero { min-height: 100vh; padding: 30px 1.5em 3rem; align-items: center; }
+    .hero { min-height: 85vh; padding: 30px 1.5em 3rem; align-items: center; }
     .hero-logo { width: 110px; height: 110px; margin-bottom: 0.75rem; }
     .hero-desc { margin-bottom: 2rem; }
     .hero-cta { gap: 0.75rem; }
@@ -1083,8 +1085,6 @@
     <figure style="max-width:100%;"><img src="img/anteproyecto-tiny01-elevaciones-vect.jpg" alt="Elevaciones Tiny 01"><figcaption class="es">Elevaciones · Tiny 01</figcaption><figcaption class="en">Elevations · Tiny 01</figcaption></figure>
     <figure style="max-width:100%;"><img src="img/anteproyecto-tiny02-accesible-planta-vect.jpg" alt="Planta Tiny accesible"><figcaption class="es">Planta · Tiny accesible</figcaption><figcaption class="en">Plan · Accessible Tiny</figcaption></figure>
     <figure style="max-width:100%;"><img src="img/anteproyecto-tiny02-elevaciones-vect.jpg" alt="Elevaciones Tiny 02 accesible"><figcaption class="es">Elevaciones · Tiny 02 accesible</figcaption><figcaption class="en">Elevations · Accessible Tiny 02</figcaption></figure>
-    <figure style="max-width:100%;"><img src="img/anteproyecto-nottiny-planta-nivel1.jpg" alt="Planta Not Tiny nivel 1"><figcaption class="es">Planta amoblada · Not Tiny N1</figcaption><figcaption class="en">Furnished plan · Not Tiny L1</figcaption></figure>
-    <figure style="max-width:100%;"><img src="img/anteproyecto-nottiny-planta-nivel2.jpg" alt="Planta Not Tiny nivel 2"><figcaption class="es">Planta · Not Tiny N2</figcaption><figcaption class="en">Plan · Not Tiny L2</figcaption></figure>
     <figure style="max-width:100%;"><img src="img/anteproyecto-masterplan-tiny01.jpg" alt="Masterplan Tiny 01"><figcaption class="es">Masterplan · Tiny 01</figcaption><figcaption class="en">Masterplan · Tiny 01</figcaption></figure>
     <figure style="max-width:100%;"><img src="img/anteproyecto-masterplan-tiny02.jpg" alt="Masterplan Tiny 02"><figcaption class="es">Masterplan · Tiny 02</figcaption><figcaption class="en">Masterplan · Tiny 02</figcaption></figure>
     <figure style="max-width:100%;"><img src="img/anteproyecto-tiny01-planimetria.jpg" alt="Planimetría Tiny 01"><figcaption class="es">Planimetría · Tiny 01</figcaption><figcaption class="en">Site plan · Tiny 01</figcaption></figure>
@@ -1305,26 +1305,27 @@
 
 <hr class="section-divider">
 
-<section id="herramientas" style="max-width:1000px; padding:4rem 2rem 3rem;">
-  <div class="section-tag">Herramientas</div>
-  <h2 class="section-title">
-    <span class="es">Una <em>herramienta</em>, no solo un post.</span>
-    <span class="en">A <em>tool</em>, not just a post.</span>
-  </h2>
-  <p style="font-size:0.95rem;color:var(--mid);max-width:640px;margin:0.5rem 0 2.5rem;line-height:1.65;" class="es">Nació como una nota del blog, pero se ganó su propio espacio: un instrumento interactivo para entrenar el ojo y el cuerpo antes de confiar en ellos.</p>
-  <p style="font-size:0.95rem;color:var(--mid);max-width:640px;margin:0.5rem 0 2.5rem;line-height:1.65;" class="en">It started as a blog note, but earned its own space: an interactive instrument to train the eye and the body before you trust them.</p>
+<section id="herramientas" style="max-width:100%; padding:5rem 2rem; background:var(--terra); margin:0;">
+  <div style="max-width:1000px; margin:0 auto;">
+    <div class="section-tag" style="color:rgba(255,255,255,0.75);">Herramientas</div>
+    <h2 class="section-title" style="color:white;">
+      <span class="es">Una <em style="color:var(--terra-pale);">herramienta</em>, no solo un post.</span>
+      <span class="en">A <em style="color:var(--terra-pale);">tool</em>, not just a post.</span>
+    </h2>
+    <p style="font-size:0.95rem;color:rgba(255,255,255,0.85);max-width:640px;margin:0.5rem 0 2.5rem;line-height:1.65;" class="es">Nació como una nota del blog, pero se ganó su propio espacio: un instrumento interactivo para entrenar el ojo y el cuerpo antes de confiar en ellos. Pruébalo aquí mismo.</p>
+    <p style="font-size:0.95rem;color:rgba(255,255,255,0.85);max-width:640px;margin:0.5rem 0 2.5rem;line-height:1.65;" class="en">It started as a blog note, but earned its own space: an interactive instrument to train the eye and the body before you trust them. Try it right here.</p>
 
-  <div style="display:grid; grid-template-columns:1fr; gap:1.5rem; background:white; border:1px solid var(--border); border-left:5px solid var(--terra); border-radius:4px; padding:2.5rem;">
-    <div class="blog-category es">Instrumento · Interactivo</div>
-    <div class="blog-category en">Instrument · Interactive</div>
-    <h3 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--dark);margin:0;" class="es">Lee el viento</h3>
-    <h3 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--dark);margin:0;" class="en">Read the wind</h3>
-    <p style="font-size:0.95rem;color:var(--mid);line-height:1.65;margin:0;" class="es">Arrastra el viento alrededor del bote, siente el ángulo antes de leer el nombre, y entrena con el modo práctica hasta que la lectura sea instinto y no memoria.</p>
-    <p style="font-size:0.95rem;color:var(--mid);line-height:1.65;margin:0;" class="en">Drag the wind around the boat, feel the angle before you read its name, and train with practice mode until the reading becomes instinct instead of memory.</p>
-    <a href="lee-el-viento.html" target="_blank" rel="noopener" class="btn-primary" style="justify-self:start; display:inline-block; width:fit-content;">
-      <span class="es">Abrir el instrumento →</span>
-      <span class="en">Open the instrument →</span>
-    </a>
+    <div style="display:grid; grid-template-columns:1fr; gap:1rem; background:white; border-radius:6px; padding:1.5rem; box-shadow:0 20px 50px rgba(0,0,0,0.25);">
+      <div class="blog-category es" style="color:var(--terra);">Instrumento · Interactivo</div>
+      <div class="blog-category en" style="color:var(--terra);">Instrument · Interactive</div>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:700;color:var(--dark);margin:0;" class="es">Lee el viento</h3>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:700;color:var(--dark);margin:0;" class="en">Read the wind</h3>
+      <iframe src="lee-el-viento.html" title="Lee el viento" style="width:100%; height:640px; border:1px solid var(--border); border-radius:4px;" loading="lazy"></iframe>
+      <a href="lee-el-viento.html" target="_blank" rel="noopener" class="btn-primary" style="justify-self:start; display:inline-block; width:fit-content;">
+        <span class="es">Abrir en pantalla completa →</span>
+        <span class="en">Open full screen →</span>
+      </a>
+    </div>
   </div>
 </section>
 
