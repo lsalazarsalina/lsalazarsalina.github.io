@@ -1145,18 +1145,6 @@
 
   <div class="blog-grid">
     
-<a href="#post-3" class="blog-post" target="_blank" rel="noopener">
-      <div class="blog-date">Julio<br>2026</div>
-      <div>
-        <div class="blog-category es">Herramienta · Interactivo</div>
-        <div class="blog-category en">Tool · Interactive</div>
-        <div class="blog-title es">Lee el viento</div>
-        <div class="blog-title en">Read the wind</div>
-        <div class="blog-excerpt es">Un instrumento interactivo para entrenar el ojo y el cuerpo: arrastra el viento alrededor del bote y aprende a reconocer cada punto de vela, con modo de práctica incluido.</div>
-        <div class="blog-excerpt en">An interactive instrument to train the eye and the body: drag the wind around the boat and learn to recognize each point of sail, with a built-in practice mode.</div>
-      </div>
-    </a>
-
 <a href="#post-2" class="blog-post" target="_blank" rel="noopener">
       <div class="blog-date">Julio<br>2026</div>
       <div>
@@ -1238,25 +1226,6 @@
 
     </div>
   </div></div>
-
-<div id="post-3" style="display:none; margin-top:3rem;">
-  <button onclick="document.getElementById('post-3').style.display='none'" style="background:none;border:1px solid var(--border);padding:0.5rem 1.2rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;letter-spacing:0.06em;cursor:pointer;margin-bottom:2.5rem;color:var(--mid);">← <span class="es">Volver al blog</span><span class="en">Back to blog</span></button>
-
-  <div class="blog-category es" style="margin-bottom:0.8rem;font-size:0.78rem;letter-spacing:0.15em;">Herramienta · Interactivo</div>
-  <div class="blog-category en" style="margin-bottom:0.8rem;font-size:0.78rem;letter-spacing:0.15em;">Tool · Interactive</div>
-
-  <h3 class="es" style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;margin-bottom:0.3rem;">Lee el viento</h3>
-  <h3 class="en" style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;margin-bottom:0.3rem;">Read the wind</h3>
-  <p style="font-size:0.85rem;color:var(--mid);margin-bottom:2rem;">Loreto Salazar Salina · Arquitecta N°300833 · Julio 2026</p>
-
-  <p class="es">Este instrumento nació de una duda muy concreta a bordo de Silver Harmony: cómo aprender a confiar en lo que el cuerpo ya siente antes de que la cabeza le ponga nombre. Arrastra la flecha de viento alrededor del bote, siente el ángulo, y solo después mira qué punto de vela es. Tiene un modo de práctica para entrenar la lectura sin depender de que alguien más te lo diga.</p>
-  <p class="en">This instrument came out of a very concrete question aboard Silver Harmony: how to learn to trust what the body already feels before the mind names it. Drag the wind arrow around the boat, feel the angle, and only then check which point of sail it is. It includes a practice mode to train that reading without depending on someone else naming it for you.</p>
-
-  <a href="lee-el-viento.html" style="display:inline-block;background:var(--terra);color:white;padding:0.75rem 1.6rem;text-decoration:none;font-size:0.75rem;letter-spacing:0.05em;text-transform:uppercase;border-radius:2px;margin:1rem 0 0;">
-    <span class="es">Abrir el instrumento →</span>
-    <span class="en">Open the instrument →</span>
-  </a>
-</div>
 
 <div id="post-2" style="display:none; margin-top:3rem;">
   <button onclick="document.getElementById('post-2').style.display='none'" style="background:none;border:1px solid var(--border);padding:0.5rem 1.2rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;letter-spacing:0.06em;cursor:pointer;margin-bottom:2.5rem;color:var(--mid);">← <span class="es">Volver al blog</span><span class="en">Back to blog</span></button>
@@ -1498,7 +1467,6 @@
     let targetPost = null;
     if(hash === '#post-1') targetPost = 'post-1';
     if(hash === '#post-2') targetPost = 'post-2';
-    if(hash === '#post-3' || hash === '#instrumento') targetPost = 'post-3';
     if(targetPost){
       const el = document.getElementById(targetPost);
       if(el) el.style.display = 'block';
