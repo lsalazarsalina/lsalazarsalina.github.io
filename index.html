@@ -151,6 +151,13 @@
     z-index: 1;
   }
 
+  .hero-logo {
+    width: 180px;
+    height: 180px;
+    margin-bottom: 1.25rem;
+    flex-shrink: 0;
+  }
+
   .hero-tag {
     font-size: 0.72rem;
     letter-spacing: 0.15em;
@@ -931,7 +938,9 @@
     .nav-links { display: none; }
     .blog-float-btn .blog-float-text { display: none; }
     .blog-float-btn { padding: 0.75rem; font-size: 0.85rem; }
-    .hero { min-height: 72vh; padding: 30px 1.5em 3rem; }
+    .hero { min-height: 100vh; padding: 30px 1.5em 3rem; align-items: center; }
+    .hero-logo { width: 110px; height: 110px; margin-bottom: 0.75rem; }
+    .hero-desc { margin-bottom: 2rem; }
     .hero-cta { gap: 0.75rem; }
     .hero-cta a { padding: 0.6rem 1.2rem; font-size: 0.7rem; }
   }
@@ -975,7 +984,7 @@
 <!-- HERO -->
 <div class="hero">
   <div class="hero-inner">
-    <div style="width:180px; height:180px; background:white; border-radius:50%; margin-bottom:1.25rem; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+    <div class="hero-logo" style="background:white; border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center;">
       <img src="img/logo-refugio-nomada.png" alt="Refugio Nómada" style="width:78%;height:78%;object-fit:contain;">
     </div>
     <div class="hero-tag">
@@ -1256,9 +1265,24 @@
     <div class="portfolio-item" style="background:white;"><img src="img/obra-bn.jpg" style="width:100%;height:80%;object-fit:cover;"><div class="portfolio-overlay"><div class="portfolio-title"><span class="es">Fundaciones · Leucotón</span><span class="en">Foundations · Leucotón</span></div><div class="portfolio-loc">Manquemapu · Los Lagos</div></div></div>
   </div>
 
+  <div class="portfolio-group-title es">Obras en Terreno · Varios Proyectos</div>
+  <div class="portfolio-group-title en">Site Work · Various Projects</div>
+  <div class="portfolio-line">
+    <figure class="wide"><img src="img/obras-grid.png" alt="Obras en terreno, distintos proyectos"><figcaption class="es">Detalles de obra · Distintos proyectos</figcaption><figcaption class="en">Construction details · Various projects</figcaption></figure>
+  </div>
+
+  <div class="portfolio-group-title es">Loteo · Melipilla</div>
+  <div class="portfolio-group-title en">Subdivision · Melipilla</div>
+  <div class="portfolio-line">
+    <figure class="wide"><img src="img/blog-loteo-aereo.jpg" alt="Vista aérea loteo Melipilla"><figcaption class="es">Vista aérea · Loteo Melipilla</figcaption><figcaption class="en">Aerial view · Melipilla subdivision</figcaption></figure>
+    <figure class="wide"><img src="img/blog-loteo-brujo.jpg" alt="Loteo Melipilla"><figcaption class="es">Loteo · Melipilla</figcaption><figcaption class="en">Subdivision · Melipilla</figcaption></figure>
+  </div>
+
   <div class="portfolio-group-title es">Anteproyecto Caleta Portalón · Masterplan &amp; Emplazamiento</div>
   <div class="portfolio-group-title en">Caleta Portalón Preliminary Project · Masterplan &amp; Siting</div>
   <div class="portfolio-line">
+    <figure class="wide"><img src="img/masterplan.jpg" alt="Masterplan Caleta Portalón"><figcaption class="es">Masterplan · Caleta Portalón</figcaption><figcaption class="en">Masterplan · Caleta Portalón</figcaption></figure>
+    <figure class="wide"><img src="img/anteproyecto-masterplan-general.jpg" alt="Planta general emplazamiento"><figcaption class="es">Planta general · Emplazamiento</figcaption><figcaption class="en">General plan · Siting</figcaption></figure>
     <figure><img src="img/anteproyecto-tiny01-planta-vect.jpg" alt="Planta Tiny 01"><figcaption class="es">Planta · Tiny 01</figcaption><figcaption class="en">Plan · Tiny 01</figcaption></figure>
     <figure><img src="img/anteproyecto-tiny01-elevaciones-vect.jpg" alt="Elevaciones Tiny 01"><figcaption class="es">Elevaciones · Tiny 01</figcaption><figcaption class="en">Elevations · Tiny 01</figcaption></figure>
     <figure><img src="img/anteproyecto-tiny02-accesible-planta-vect.jpg" alt="Planta Tiny accesible"><figcaption class="es">Planta · Tiny accesible</figcaption><figcaption class="en">Plan · Accessible Tiny</figcaption></figure>
