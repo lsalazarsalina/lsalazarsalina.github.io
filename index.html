@@ -75,6 +75,17 @@
 
   .nav-links a:hover { color: var(--terra); }
 
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--dark);
+    padding: 0.4rem;
+  }
+
   .lang-toggle {
     display: flex;
     align-items: center;
@@ -105,14 +116,16 @@
   }
 
   /* HERO */
-   .hero {
-    min-height: 120vh;
+  .hero {
+    min-height: 75vh;
     display: flex;
     align-items: flex-end;
     padding: 52px 4em 5rem;
+    max-width: 1200px;
+    margin: 0 auto;
     position: relative;
     overflow: hidden;
-    background: url('img/loreto-mar.jpg') center 80% / cover no-repeat;
+    background: url('img/loreto-mar.jpg') center 70% / cover no-repeat;
   }
 
   .hero::after {
@@ -136,7 +149,11 @@
   }
 
   @media (max-width: 700px) {
-   .hero { min-height: 100vh; padding: 30px 1.5em 3rem; align-items: center; }
+    .hero-chile {
+      width: 80%;
+      right: 11rem;
+      opacity: 100%;
+    }
   }
 
   .hero-inner {
@@ -146,11 +163,11 @@
     position: relative;
     z-index: 1;
   }
-  
-.hero-logo {
-    width: 255px;
-    height: 255px;
-    margin-bottom: 3rem;
+
+  .hero-logo {
+    width: 170px;
+    height: 170px;
+    margin-bottom: 1.25rem;
     flex-shrink: 0;
   }
 
@@ -901,32 +918,13 @@
     border-top: 15px solid var(--border);
     padding: 2cm 2rem 2rem;
     min-height: 300px;
-    display: relative;
-    align-items: relative-end;
+    display: flex;
+    align-items: flex-end;
     justify-content: space-between;
     flex-wrap: wrap;
     position: relative;
     overflow: hidden;
     background: rgb(255, 255, 255);
-  }
-
-    .footer-name {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.85rem;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    position: relative;
-    z-index: 3;
-    text-align: center;
-  }
-
-  .footer-patent {
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    color: var(--muted);
-    position: relative;
-    z-index: 3;
-    text-align: center;
   }
 
   .footer-globe {
@@ -938,6 +936,24 @@
     opacity: 95;
     pointer-events: visiblePainted;
   }
+
+  .footer-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    position: relative;
+    z-index: 3;
+  }
+
+  .footer-patent {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    position: relative;
+    z-index: 3;
+  }
+
 
   /* LANG CONTENT */
   .en { display: none; }
@@ -955,7 +971,25 @@
     .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
     .portfolio-item.tall { aspect-ratio: 1/1; grid-row: span 1; }
     .blog-post { grid-template-columns: 1fr; gap: 0.5rem; }
-    .nav-links { display: none; }
+
+    /* Mobile nav: hamburger toggle instead of hiding links with no alternative */
+    .nav-toggle { display: block; }
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      gap: 0;
+      background: rgba(249,245,241,0.98);
+      border-bottom: 1px solid var(--border);
+      padding: 0.5rem 2rem 1rem;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links li { padding: 0.7rem 0; border-bottom: 1px solid var(--border); }
+    .nav-links li:last-child { border-bottom: none; }
+
     .blog-float-btn .blog-float-text { display: none; }
     .blog-float-btn { padding: 0.75rem; font-size: 0.85rem; }
     .hero { min-height: 85vh; padding: 30px 1.5em 3rem; align-items: center; }
@@ -963,6 +997,13 @@
     .hero-desc { margin-bottom: 2rem; }
     .hero-cta { gap: 0.75rem; }
     .hero-cta a { padding: 0.6rem 1.2rem; font-size: 0.7rem; }
+
+    /* Footer stacks and the background globe no longer dominates the screen */
+    footer { flex-direction: column; text-align: center; gap: 0.5rem; padding: 2rem 1.5rem; }
+    .footer-globe { width: 320px; bottom: -80px; }
+
+    /* Iframe tool doesn't need desktop-sized height on a phone */
+    #herramientas iframe { height: 480px; }
   }
 
   /* ANIMATIONS */
@@ -990,6 +1031,7 @@
     <li><a href="#portfolio"><span class="es">Portafolio</span><span class="en">Portfolio</span></a></li>
     <li><a href="#contacto"><span class="es">Contacto</span><span class="en">Contact</span></a></li>
   </ul>
+  <button class="nav-toggle" onclick="toggleNav()" aria-label="Abrir menú">☰</button>
   <div class="lang-toggle">
     <button class="lang-btn active" onclick="setLang('es')">ES</button>
     <span class="lang-sep">/</span>
@@ -1030,7 +1072,7 @@
 <section id="portfolio" style="max-width:1200px; padding:4rem 2rem 3rem;">
   <div class="portfolio-group-title es">Modelados 3D & Proyectos</div>
   <div class="portfolio-group-title en">3D Models & Projects</div>
-  <div class="portfolio-grid" style="grid-template-columns:repeat(6,1fr);">
+  <div class="portfolio-grid">
     <div class="portfolio-item tall"><img src="img/render-quincho.png" style="width:100%;height:100%;object-fit:cover;"><div class="portfolio-overlay"><div class="portfolio-title"><span class="es">Quincho Los Cipreses</span><span class="en">Los Cipreses Quincho</span></div><div class="portfolio-loc">Pucón · <span class="es">Modelado 3D</span><span class="en">3D Model</span></div></div></div>
     <div class="portfolio-item"><img src="img/vivienda-negra.jpg" style="width:100%;height:100%;object-fit:cover;"><div class="portfolio-overlay"><div class="portfolio-title"><span class="es">Vivienda Rural</span><span class="en">Rural House</span></div><div class="portfolio-loc">RM · <span class="es">Modelado 3D</span><span class="en">3D Model</span></div></div></div>
     <div class="portfolio-item"><img src="img/render-bosque-dia.jpg" style="width:100%;height:100%;object-fit:cover;"><div class="portfolio-overlay"><div class="portfolio-title"><span class="es">Cabaña Bosque</span><span class="en">Forest Cabin</span></div><div class="portfolio-loc"><span class="es">Modelado 3D · Madera</span><span class="en">3D Model · Timber</span></div></div></div>
@@ -1099,7 +1141,7 @@
     <span class="en">Architect, nomad,<br><em>mapping territories.</em></span>
   </h2>
   <div class="about-photo-wrap">
-    <img src="img/loreto-montana.jpg" style="width:55%;border-radius:2px;margin:1rem 0 0.75rem;" 
+    <img src="img/loreto-montana.jpg" style="width:55%;border-radius:2px;margin:1rem 0 0.75rem;"
     alt="Loreto Salazar — Refugio Nómada" class="about-photo">
     <div class="about-photo-caption"><span class="es">En terreno · Chile</span><span class="en">On site · Chile</span></div>
   </div>
@@ -1269,7 +1311,7 @@
   </h2>
 
   <div class="blog-grid">
-    
+
 <a href="post-2.html" class="blog-post" target="_blank" rel="noopener">
       <div class="blog-date">Julio<br>2026</div>
       <div>
@@ -1300,21 +1342,22 @@
 
 <hr class="section-divider">
 
-<section id="herramientas" style="max-width:100%; padding:5rem 2rem; background:white; margin:0;">
- <div style="max-width:1000px; margin:0 auto; background:var(--terra); padding:3rem; border-radius:6px;">
-<div class="section-tag" style="color:rgba(255,255,255,0.75);">Herramientas</div>
+<section id="herramientas" style="max-width:100%; padding:5rem 2rem; background:var(--terra); margin:0;">
+  <div style="max-width:1000px; margin:0 auto;">
+    <div class="section-tag" style="color:rgba(255,255,255,0.75);">Herramientas</div>
     <h2 class="section-title" style="color:white;">
-     <span class="es">El viento y el <em style="color:#e0ff43;">código</em>, la misma travesía.</span>
-      <span class="en">The wind and the <em style="color:#e0ff43;">code</em>, the same crossing.</span>
-    </h2><p style="font-size:0.95rem;color:rgba(255,255,255,0.85);max-width:100%;margin:0.5rem 0 2.5rem;line-height:1.65;" class="es">Antes de esta aventura náutica decidí postular a la Beca Talento Digital y aprender a programar. En ese curso de Python conocí Git, Visual Studio Code y las herramientas que hoy uso a diario. Gracias a ellas he podido automatizar procesos, respaldar mi profesión y registrar cada travesía. Llevo una vida remota, consciente de la naturaleza y el mar, pero equilibrada con la tecnología: miro las estrellas sin negar el paso de los satélites y la basura espacial, ahorro agua, viajo con el viento — y veo la basura de los océanos, cómo el territorio en tierra se fragmenta mientras que en el océano todo es uno. Este instrumento nació de esa mirada: una forma de entender el viento, y las decisiones y el posicionamiento de las velas que vienen con él. Está pensado tanto para quienes ya navegan como aprendices, como para quienes algún día quieran enamorarse de la navegación.</p>
-    <p style="font-size:0.95rem;color:rgba(255,255,255,0.85);max-width:100%;margin:0.5rem 0 2.5rem;line-height:1.65;" class="en">Before this sailing adventure, I applied for the Digital Talent Scholarship and learned to code. In that Python course I discovered Git, Visual Studio Code, and the tools I now use every day. Thanks to them I've been able to automate processes, back up my profession, and log every crossing. I live remotely, aware of nature and the sea, yet balanced with technology: I watch the stars without ignoring the satellites and space debris passing overhead, I save water, I travel by wind — and I see the garbage in the oceans, how land fragments while at sea everything is one. This instrument was born from that way of seeing: a way to understand the wind, and the decisions and sail positioning that come with it. It's built for current sailing apprentices as much as for future lovers of navigation.</p>
+      <span class="es">Una <em style="color:var(--terra-pale);">herramienta</em>, no solo un post.</span>
+      <span class="en">A <em style="color:var(--terra-pale);">tool</em>, not just a post.</span>
+    </h2>
+    <p style="font-size:0.95rem;color:rgba(255,255,255,0.85);max-width:640px;margin:0.5rem 0 2.5rem;line-height:1.65;" class="es">Nació como una nota del blog, pero se ganó su propio espacio: un instrumento interactivo para entrenar el ojo y el cuerpo antes de confiar en ellos. Pruébalo aquí mismo.</p>
+    <p style="font-size:0.95rem;color:rgba(255,255,255,0.85);max-width:640px;margin:0.5rem 0 2.5rem;line-height:1.65;" class="en">It started as a blog note, but earned its own space: an interactive instrument to train the eye and the body before you trust them. Try it right here.</p>
 
     <div style="display:grid; grid-template-columns:1fr; gap:1rem; background:white; border-radius:6px; padding:1.5rem; box-shadow:0 20px 50px rgba(0,0,0,0.25);">
       <div class="blog-category es" style="color:var(--terra);">Instrumento · Interactivo</div>
       <div class="blog-category en" style="color:var(--terra);">Instrument · Interactive</div>
       <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:700;color:var(--dark);margin:0;" class="es">Lee el viento</h3>
       <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:700;color:var(--dark);margin:0;" class="en">Read the wind</h3>
-      <iframe src="lee-el-viento.html?v=2" title="Lee el viento" style="width:100%; height:85vh; border:1px solid var(--border); border-radius:4px;" loading="lazy"></iframe>
+      <iframe src="lee-el-viento.html" title="Lee el viento" style="width:100%; height:640px; border:1px solid var(--border); border-radius:4px;" loading="lazy"></iframe>
       <a href="lee-el-viento.html" target="_blank" rel="noopener" class="btn-primary" style="justify-self:start; display:inline-block; width:fit-content;">
         <span class="es">Abrir en pantalla completa →</span>
         <span class="en">Open full screen →</span>
@@ -1376,11 +1419,11 @@
 <footer>
   <img src="mundo.jpg" alt="" class="footer-globe">
   <div class="footer-name">
-    Loreto Salazar Arquitectura y Planificación Territorial EIRL 
+    Loreto Salazar Arquitectura y Planificación Territorial EIRL
     · RUT 78.351.959-3
   </div>
   <div class="footer-patent">
-    <span class="es">Patente</span><span class="en">License</span> N°300833 · lsalazarsalina@gmail.com 
+    <span class="es">Patente</span><span class="en">License</span> N°300833 · lsalazarsalina@gmail.com
   </div>
 </footer>
 
@@ -1434,6 +1477,16 @@
 
   // Init on load
   setLang('es');
+
+  // Mobile hamburger menu
+  function toggleNav() {
+    document.querySelector('.nav-links').classList.toggle('open');
+  }
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.remove('open');
+    });
+  });
 
   // Lightbox: click any portfolio image to view it full size
   const lightbox = document.createElement('div');
