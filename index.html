@@ -936,24 +936,24 @@
     opacity: 95;
     pointer-events: visiblePainted;
   }
+.footer-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  position: relative;
+  z-index: 3;
+  width: 100%;
+}
 
-  .footer-name {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.85rem;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    position: relative;
-    z-index: 3;
-  }
-
-  .footer-patent {
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    color: var(--muted);
-    position: relative;
-    z-index: 3;
-  }
-
+.footer-patent {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  position: relative;
+  z-index: 3;
+  width: 100%;
+}
 
   /* LANG CONTENT */
   .en { display: none; }
@@ -999,7 +999,7 @@
     .hero-cta a { padding: 0.6rem 1.2rem; font-size: 0.7rem; }
 
     /* Footer stacks and the background globe no longer dominates the screen */
-    footer { flex-direction: column; text-align: center; gap: 0.5rem; padding: 2rem 1.5rem; }
+   footer { flex-direction: column; align-items: center; text-align: center; gap: 0.5rem; padding: 2rem 1.5rem; }
     .footer-globe { width: 320px; bottom: -80px; }
 
     /* Iframe tool doesn't need desktop-sized height on a phone */
