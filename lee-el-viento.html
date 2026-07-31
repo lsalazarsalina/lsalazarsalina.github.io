@@ -16,10 +16,9 @@
     --ocre:#A67511;
     --musgo:#4B6B1F;
     --burdeo:#6B0F1A;
-       --border: rgba(20,13,8,0.14);
+    --border: rgba(20,13,8,0.14);
   }
   body.theme-dark {
-    --bg:#0A0806;
     --bg:#0A0806;
     --card:#18130E;
     --ink:#F5EFE4;
@@ -106,6 +105,32 @@
     box-shadow:0 16px 40px rgba(0,0,0,0.35);
     transition:background .35s ease, border-color .35s ease;
   }
+  .tabs{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:6px;
+    margin-bottom:18px;
+  }
+  .tab-btn{
+    background:var(--bg);
+    border:1px solid var(--border);
+    color:var(--muted);
+    font-family:'DM Sans', sans-serif;
+    font-weight:500;
+    font-size:11px;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    padding:10px 4px;
+    border-radius:2px;
+    cursor:pointer;
+    text-align:center;
+    line-height:1.3;
+  }
+  .tab-btn .en{display:block; font-size:9px; font-style:italic; font-weight:400; opacity:0.7; text-transform:none; margin-top:1px;}
+  .tab-btn.active{background:var(--terracota); border-color:var(--terracota); color:#fff;}
+  .tab-btn.active .en{color:rgba(255,255,255,0.85);}
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block;}
   .compass-holder{
     position:relative;
     width:100%;
@@ -193,42 +218,9 @@
   .ribbon-label{font-family:'DM Sans', sans-serif; font-size:10px; color:var(--muted);}
   .ribbon-label .en{display:block; font-style:italic; opacity:0.75;}
 
-  .practice-toggle{
-    width:100%;
-    margin-top:18px;
-    background:var(--terracota);
-    border:none;
-    color:#fff;
-    font-family:'DM Sans', sans-serif;
-    font-weight:500;
-    font-size:12px;
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    padding:15px;
-    border-radius:50px;
-    cursor:pointer;
-    transition:background .2s, transform .2s;
-    text-align:center;
-    line-height:1.5;
-    animation:floatPulse 2.4s ease-in-out infinite;
-  }
-  @keyframes floatPulse{
-    0%,100%{ box-shadow:0 10px 26px rgba(234,255,7,0.5); }
-    50%{ box-shadow:0 16px 38px rgba(234,255,7,0.32); }
-  }
-  .practice-toggle .en{display:block; font-size:10.5px; font-style:italic; opacity:0.85; text-transform:none; font-weight:400;}
-  .practice-toggle:hover{background:var(--burdeo); animation-play-state:paused; transform:translateY(-2px);}
-  .practice-toggle.active{background:var(--coffee); animation:none; box-shadow:none;}
-  body.theme-dark .practice-toggle{color:#140D08;}
-  body.theme-dark .practice-toggle.active{color:#F5EFE4;}
-
   .practice-panel{
-    margin-top:16px;
-    padding-top:16px;
-    border-top:1px dashed var(--border);
-    display:none;
+    padding-top:2px;
   }
-  .practice-panel.show{display:block;}
   .score{
     font-family:'DM Sans', sans-serif;
     font-size:11px;
@@ -332,62 +324,84 @@
   <span class="en">Drag the wind arrow around the boat. Feel the angle before you look at the name — the body learns this faster than the word.</span></p>
 
   <div class="instrument">
-    <div class="compass-holder" id="compassHolder">
-      <svg viewBox="0 0 300 300" id="compassSvg">
-        <circle cx="150" cy="150" r="130" fill="none" stroke="rgba(245,239,228,0.18)" stroke-width="1" id="outerRing"/>
-        <g id="zoneArcs"></g>
-        <g transform="translate(150,150)">
-          <path d="M0,-38 L14,20 Q0,34 -14,20 Z" fill="none" stroke="#F5EFE4" stroke-width="2" opacity="0.85" id="boatShape"/>
-          <line x1="0" y1="-38" x2="0" y2="30" stroke="#F5EFE4" stroke-width="1" opacity="0.35" id="boatLine"/>
-        </g>
-        <g id="windPointer" transform="translate(150,150) rotate(30)">
-          <line x1="0" y1="0" x2="0" y2="-118" stroke="#D9AE6E" stroke-width="3" stroke-linecap="round" id="pointerLine"/>
-          <path d="M0,-118 L-8,-102 L8,-102 Z" fill="#D9AE6E" id="pointerHead"/>
-          <circle cx="0" cy="-102" r="13" fill="#18130E" stroke="#D9AE6E" stroke-width="2.5" style="cursor:grab;" id="pointerKnob"/>
-        </g>
-        <circle cx="150" cy="150" r="4" fill="#E8703D"/>
-      </svg>
-    </div>
-    <div class="drag-hint">◈ arrastra el punto — el bote siempre apunta hacia arriba<span class="en">◈ drag the point — the boat always points up</span></div>
-
-    <div class="readout">
-      <div class="cell">
-        <div class="k">Ángulo al viento<span class="en">Wind angle</span></div>
-        <div class="v" id="angleVal">30°</div>
-      </div>
-      <div class="cell" id="zoneCell">
-        <div class="k">Punto de vela<span class="en">Point of sail</span></div>
-        <div class="v" id="zoneName">Ceñida</div>
-        <div class="v en" id="zoneNameEn">close hauled</div>
-      </div>
-      <div class="cell wide" id="actionCell">
-        <div class="k">Qué hacer con la vela<span class="en">What to do with the sail</span></div>
-        <div class="action-line">
-          <span id="actionTextEs">Vela bien adentro, casi al centro del bote.</span>
-          <span class="en" id="actionTextEn">Sail trimmed in tight, close to centerline.</span>
-        </div>
-        <div class="telltale">
-          <div class="ribbon" id="ribbon"></div>
-          <span class="ribbon-label">
-            <span id="ribbonLabelEs">telltale: pegada, sin flamear</span>
-            <span class="en" id="ribbonLabelEn">telltale: tight, not luffing</span>
-          </span>
-        </div>
-      </div>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="angulo">Ángulo<span class="en">Angle</span></button>
+      <button class="tab-btn" data-tab="desc">Qué hacer<span class="en">What to do</span></button>
+      <button class="tab-btn" data-tab="practica">Práctica<span class="en">Practice</span></button>
     </div>
 
-    <div class="ref" id="refStrip"></div>
-
-    <button class="practice-toggle" id="practiceToggle">Modo práctica<span class="en">Practice mode</span></button>
-
-    <div class="practice-panel" id="practicePanel">
-      <div class="score">racha/streak: <b id="streakVal">0</b> · respondidas/answered: <b id="answeredVal">0</b></div>
-      <div class="quiz-q" id="quizQ">El viento te llega a 90° de la proa. ¿En qué punto de vela estás?
-        <span class="en" id="quizQEn">The wind hits you at 90° off the bow. What point of sail are you on?</span>
+    <!-- PESTAÑA 1: ÁNGULO -->
+    <div class="tab-panel active" data-panel="angulo">
+      <div class="compass-holder" id="compassHolder">
+        <svg viewBox="0 0 300 300" id="compassSvg">
+          <circle cx="150" cy="150" r="130" fill="none" stroke="rgba(245,239,228,0.18)" stroke-width="1" id="outerRing"/>
+          <g id="zoneArcs"></g>
+          <g transform="translate(150,150)">
+            <path d="M0,-38 L14,20 Q0,34 -14,20 Z" fill="none" stroke="#F5EFE4" stroke-width="2" opacity="0.85" id="boatShape"/>
+            <line x1="0" y1="-38" x2="0" y2="30" stroke="#F5EFE4" stroke-width="1" opacity="0.35" id="boatLine"/>
+          </g>
+          <g id="windPointer" transform="translate(150,150) rotate(30)">
+            <line x1="0" y1="0" x2="0" y2="-118" stroke="#D9AE6E" stroke-width="3" stroke-linecap="round" id="pointerLine"/>
+            <path d="M0,-118 L-8,-102 L8,-102 Z" fill="#D9AE6E" id="pointerHead"/>
+            <circle cx="0" cy="-102" r="13" fill="#18130E" stroke="#D9AE6E" stroke-width="2.5" style="cursor:grab;" id="pointerKnob"/>
+          </g>
+          <circle cx="150" cy="150" r="4" fill="#E8703D"/>
+        </svg>
       </div>
-      <div class="options" id="quizOptions"></div>
-      <div class="feedback" id="quizFeedback"></div>
-      <button class="next-btn" id="nextBtn">Siguiente ángulo → / Next angle →</button>
+      <div class="drag-hint">◈ arrastra el punto — el bote siempre apunta hacia arriba<span class="en">◈ drag the point — the boat always points up</span></div>
+
+      <div class="readout">
+        <div class="cell">
+          <div class="k">Ángulo al viento<span class="en">Wind angle</span></div>
+          <div class="v" id="angleVal">30°</div>
+        </div>
+        <div class="cell" id="zoneCell">
+          <div class="k">Punto de vela<span class="en">Point of sail</span></div>
+          <div class="v" id="zoneName">Ceñida</div>
+          <div class="v en" id="zoneNameEn">close hauled</div>
+        </div>
+      </div>
+
+      <div class="ref" id="refStrip"></div>
+    </div>
+
+    <!-- PESTAÑA 2: QUÉ HACER -->
+    <div class="tab-panel" data-panel="desc">
+      <div class="readout" style="grid-template-columns:1fr; margin-top:0;">
+        <div class="cell">
+          <div class="k">Estás en<span class="en">You're on</span></div>
+          <div class="v" id="zoneNameDesc">Ceñida</div>
+          <div class="v en" id="zoneNameDescEn">close hauled</div>
+        </div>
+        <div class="cell wide" id="actionCell">
+          <div class="k">Qué hacer con la vela<span class="en">What to do with the sail</span></div>
+          <div class="action-line">
+            <span id="actionTextEs">Vela bien adentro, casi al centro del bote.</span>
+            <span class="en" id="actionTextEn">Sail trimmed in tight, close to centerline.</span>
+          </div>
+          <div class="telltale">
+            <div class="ribbon" id="ribbon"></div>
+            <span class="ribbon-label">
+              <span id="ribbonLabelEs">telltale: pegada, sin flamear</span>
+              <span class="en" id="ribbonLabelEn">telltale: tight, not luffing</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="drag-hint" style="margin-top:12px;">◈ vuelve a la pestaña Ángulo para cambiar la posición<span class="en">◈ go back to the Angle tab to change position</span></div>
+    </div>
+
+    <!-- PESTAÑA 3: PRÁCTICA -->
+    <div class="tab-panel" data-panel="practica">
+      <div class="practice-panel" id="practicePanel">
+        <div class="score">racha/streak: <b id="streakVal">0</b> · respondidas/answered: <b id="answeredVal">0</b></div>
+        <div class="quiz-q" id="quizQ">El viento te llega a 90° de la proa. ¿En qué punto de vela estás?
+          <span class="en" id="quizQEn">The wind hits you at 90° off the bow. What point of sail are you on?</span>
+        </div>
+        <div class="options" id="quizOptions"></div>
+        <div class="feedback" id="quizFeedback"></div>
+        <button class="next-btn" id="nextBtn">Siguiente ángulo → / Next angle →</button>
+      </div>
     </div>
   </div>
   <footer>LEE EL VIENTO · SILVER HARMONY</footer>
@@ -478,6 +492,8 @@ const pointerKnob = document.getElementById('pointerKnob');
 const angleVal = document.getElementById('angleVal');
 const zoneName = document.getElementById('zoneName');
 const zoneNameEn = document.getElementById('zoneNameEn');
+const zoneNameDesc = document.getElementById('zoneNameDesc');
+const zoneNameDescEn = document.getElementById('zoneNameDescEn');
 const actionTextEs = document.getElementById('actionTextEs');
 const actionTextEn = document.getElementById('actionTextEn');
 const zoneCell = document.getElementById('zoneCell');
@@ -510,6 +526,8 @@ function render(angle){
   angleVal.textContent = Math.round(angle) + '°';
   zoneName.textContent = z.name;
   zoneNameEn.textContent = z.nameEn;
+  zoneNameDesc.textContent = z.name;
+  zoneNameDescEn.textContent = z.nameEn;
   actionTextEs.textContent = z.actionEs;
   actionTextEn.textContent = z.actionEn;
   ribbonLabelEs.textContent = 'telltale: ' + z.telltaleEs;
@@ -571,7 +589,6 @@ themeToggle.addEventListener('click', ()=>{
   render(currentAngle);
 });
 
-const practiceToggle = document.getElementById('practiceToggle');
 const practicePanel = document.getElementById('practicePanel');
 const quizQ = document.getElementById('quizQ');
 const quizQEn = document.getElementById('quizQEn');
@@ -590,6 +607,8 @@ function newQuiz(){
   render(quizAngle);
   zoneName.textContent = '—';
   zoneNameEn.textContent = '';
+  zoneNameDesc.textContent = '—';
+  zoneNameDescEn.textContent = '';
   actionTextEs.textContent = 'Responde abajo antes de mirar aquí.';
   actionTextEn.textContent = 'Answer below before you look here.';
   ribbonLabelEs.textContent = 'telltale: (respondiendo…)';
@@ -634,17 +653,24 @@ function answerQuiz(chosen, btnEl){
 
 nextBtn.addEventListener('click', newQuiz);
 
-practiceToggle.addEventListener('click', ()=>{
-  const isActive = practicePanel.classList.toggle('show');
-  practiceToggle.classList.toggle('active', isActive);
-  if(isActive){
-    practiceToggle.innerHTML = 'Cerrar práctica<span class="en">Close practice</span>';
+// Sistema de pestañas: Ángulo / Qué hacer / Práctica
+const tabBtns = document.querySelectorAll('.tab-btn');
+const tabPanels = document.querySelectorAll('.tab-panel');
+
+function switchTab(tab){
+  tabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  tabPanels.forEach(p => p.classList.toggle('active', p.dataset.panel === tab));
+  if(tab === 'practica'){
     newQuiz();
   } else {
-    practiceToggle.innerHTML = 'Modo práctica<span class="en">Practice mode</span>';
     render(currentAngle);
   }
+}
+
+tabBtns.forEach(btn => {
+  btn.addEventListener('click', () => switchTab(btn.dataset.tab));
 });
+
 </script>
 </body>
 </html>
