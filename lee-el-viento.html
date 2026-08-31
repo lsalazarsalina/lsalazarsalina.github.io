@@ -313,10 +313,10 @@
   }
 </style>
 </head>
-<body class="theme-dark">
+<body>
 <div class="wrap">
   <div class="topbar">
-    <button class="theme-toggle" id="themeToggle">● Noche / Night</button>
+    <button id="themeToggle" class="theme-toggle">● Noche / Night</button>
   </div>
   <div class="eyebrow">Silver Harmony <span class="en">· onboard instrument</span></div>
   <h1>Lee el viento<span class="en">Read the wind</span></h1>
@@ -583,7 +583,7 @@ window.addEventListener('touchend', endDrag);
 const themeToggle = document.getElementById('themeToggle');
 themeToggle.addEventListener('click', ()=>{
   const isDark = document.body.classList.toggle('theme-dark');
-  themeToggle.textContent = isDark ? '● Noche / Night' : '☀ Día / Day';
+themeToggle.textContent = isDark ? '☀ Día / Day' : '● Noche / Night';
   syncSvgTheme();
   buildArcs();
   render(currentAngle);
