@@ -125,7 +125,7 @@
     margin: 60px auto 0; /* AJUSTE: Separación de la imagen del menú */
     position: relative;
     overflow: hidden;
-    background: url('img/anteproyecto-tiny02-elevaciones-vect.jpg') center 70% / cover no-repeat;
+    background: url('img/mapa-melipilla-pomaire.jpg') center 45% / cover no-repeat;
   }
 
   .hero::after {
@@ -472,6 +472,9 @@
   /* RESPONSIVE */
   @media (max-width: 700px) {
     .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .about-resumen-grid { flex-direction: column; text-align: center; }
+    .about-resumen-photo { width: 140px; height: 140px; }
+    .two-col-row { grid-template-columns: 1fr; gap: 3rem; }
     .services-grid { grid-template-columns: 1fr; }
     .plantillas-grid { grid-template-columns: 1fr; }
     .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
@@ -534,6 +537,13 @@
   .cl-actions button:hover{ border-color:var(--terra); color:var(--terra); }
   .cl-disclaimer{ font-size:0.75rem; color:var(--mid); margin-top:28px; max-width:60ch; }
   @media print{ .cl-step, .cl-cta, .cl-actions{ display:none; } .cl-result{ display:block !important; } }
+  /* SOBRE MÍ resumen (home) */
+  .about-resumen-grid{ display:flex; align-items:center; gap:2rem; }
+  .about-resumen-photo{ width:180px; height:180px; flex-shrink:0; border-radius:50%; overflow:hidden; background-repeat:no-repeat; }
+
+  /* PLANTILLAS + PROYECTOS dos columnas */
+  .two-col-row{ display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; }
+
 </style>
 
 </head>
@@ -635,58 +645,7 @@
 
 <hr class="section-divider">
 
-<!-- PLANTILLAS PREVIEW -->
-<section id="plantillas-preview">
-  <div class="section-tag"><span class="es">Plantillas DOM</span><span class="en">DOM Templates</span></div>
-  <h2 class="section-title">
-    <span class="es">Documentos reales,<br><em>listos para usar.</em></span>
-    <span class="en">Real documents,<br><em>ready to use.</em></span>
-  </h2>
-  <p class="plantillas-intro es">Kit de plantillas Word editables para el expediente de Permiso de Edificación Obra Nueva en Chile, con normativa vigente 2026.</p>
-  <p class="plantillas-intro en">Editable Word template kit for the Chilean Building Permit (Obra Nueva) file, compliant with 2026 regulations.</p>
-
-  <div class="plantillas-grid preview">
-    <div class="plantilla-card featured">
-      <div class="plantilla-badge"><span class="es">Popular</span><span class="en">Popular</span></div>
-      <div class="plantilla-name">Pack Obra Nueva</div>
-      <div class="plantilla-price">$35.000</div>
-      <ul class="plantilla-items">
-        <li>Checklist expediente DOM</li>
-        <li>EETT</li>
-        <li>Carta Exención Estructural</li>
-      </ul>
-      <a href="https://mpago.la/2JwwvLY" class="btn-comprar" target="_blank"><span class="es">Comprar</span><span class="en">Buy now</span></a>
-    </div>
-  </div>
-  <a href="plantillas.html" class="btn-secondary" style="display:inline-block; margin-top:2rem; border-color:var(--terra); color:var(--terra);">
-    <span class="es">Ver todas las plantillas →</span>
-    <span class="en">View all templates →</span>
-  </a>
-</section>
-
-<hr class="section-divider">
-
-<!-- PORTAFOLIO PREVIEW -->
-<section id="portfolio-preview" style="max-width:1200px;">
-  <div class="section-tag"><span class="es">Portafolio</span><span class="en">Portfolio</span></div>
-  <h2 class="section-title">
-    <span class="es">Proyectos en<br><em>el territorio.</em></span>
-    <span class="en">Projects in<br><em>the territory.</em></span>
-  </h2>
-  <div class="portfolio-grid preview">
-    <div class="portfolio-item"><img src="img/render-quincho.png" style="width:100%;height:100%;object-fit:cover;"><div class="portfolio-overlay"><div class="portfolio-title"><span class="es">Quincho Los Cipreses</span><span class="en">Los Cipreses Quincho</span></div><div class="portfolio-loc">Pucón</div></div></div>
-    <div class="portfolio-item"><img src="img/maqueta-noche.jpg" style="width:100%;height:100%;object-fit:cover;"><div class="portfolio-overlay"><div class="portfolio-title"><span class="es">Refugio Leucotón</span><span class="en">Leucotón Shelter</span></div><div class="portfolio-loc">Manquemapu · Los Lagos</div></div></div>
-    <div class="portfolio-item"><img src="img/isla-navarino-entorno.jpg" style="width:100%;height:100%;object-fit:cover;"><div class="portfolio-overlay"><div class="portfolio-title">Masterplan</div><div class="portfolio-loc">Puerto Williams</div></div></div>
-  </div>
-  <a href="portafolio.html" class="btn-secondary" style="display:inline-block; margin-top:2rem; border-color:var(--terra); color:var(--terra);">
-    <span class="es">Ver portafolio completo →</span>
-    <span class="en">View full portfolio →</span>
-  </a>
-</section>
-
-<hr class="section-divider">
-
-<!-- HERRAMIENTA: CHECKLIST DOM -->
+<!-- HERRAMIENTA: CHECKLIST DOM (prioridad alta) -->
 <section id="checklist-preview" style="max-width:700px;">
   <div class="section-tag"><span class="es">Herramientas</span><span class="en">Tools</span></div>
   <h2 class="section-title">
@@ -740,6 +699,58 @@
 
 <hr class="section-divider">
 
+<!-- PLANTILLAS + PROYECTOS: dos columnas -->
+<section id="plantillas-proyectos-row" style="max-width:1200px;">
+  <div class="two-col-row">
+    <div class="two-col-item" id="plantillas-preview">
+      <div class="section-tag"><span class="es">Plantillas DOM</span><span class="en">DOM Templates</span></div>
+      <h2 class="section-title">
+        <span class="es">Documentos reales,<br><em>listos para usar.</em></span>
+        <span class="en">Real documents,<br><em>ready to use.</em></span>
+      </h2>
+      <p class="plantillas-intro es">Kit de plantillas Word editables para el expediente de Permiso de Edificación Obra Nueva en Chile, con normativa vigente 2026.</p>
+      <p class="plantillas-intro en">Editable Word template kit for the Chilean Building Permit (Obra Nueva) file, compliant with 2026 regulations.</p>
+
+      <div class="plantillas-grid preview">
+        <div class="plantilla-card featured">
+          <div class="plantilla-badge"><span class="es">Popular</span><span class="en">Popular</span></div>
+          <div class="plantilla-name">Pack Obra Nueva</div>
+          <div class="plantilla-price">$35.000</div>
+          <ul class="plantilla-items">
+            <li>Checklist expediente DOM</li>
+            <li>EETT</li>
+            <li>Carta Exención Estructural</li>
+          </ul>
+          <a href="https://mpago.la/2JwwvLY" class="btn-comprar" target="_blank"><span class="es">Comprar</span><span class="en">Buy now</span></a>
+        </div>
+      </div>
+      <a href="plantillas.html" class="btn-secondary" style="display:inline-block; margin-top:2rem; border-color:var(--terra); color:var(--terra);">
+        <span class="es">Ver todas las plantillas →</span>
+        <span class="en">View all templates →</span>
+      </a>
+    </div>
+
+    <div class="two-col-item" id="portfolio-preview">
+      <div class="section-tag"><span class="es">Portafolio</span><span class="en">Portfolio</span></div>
+      <h2 class="section-title">
+        <span class="es">Proyectos en<br><em>el territorio.</em></span>
+        <span class="en">Projects in<br><em>the territory.</em></span>
+      </h2>
+      <div class="portfolio-grid preview">
+        <div class="portfolio-item"><img src="img/render-quincho.png" style="width:100%;height:100%;object-fit:cover;"><div class="portfolio-overlay"><div class="portfolio-title"><span class="es">Quincho Los Cipreses</span><span class="en">Los Cipreses Quincho</span></div><div class="portfolio-loc">Pucón</div></div></div>
+        <div class="portfolio-item"><img src="img/maqueta-noche.jpg" style="width:100%;height:100%;object-fit:cover;"><div class="portfolio-overlay"><div class="portfolio-title"><span class="es">Refugio Leucotón</span><span class="en">Leucotón Shelter</span></div><div class="portfolio-loc">Manquemapu · Los Lagos</div></div></div>
+        <div class="portfolio-item"><img src="img/isla-navarino-entorno.jpg" style="width:100%;height:100%;object-fit:cover;"><div class="portfolio-overlay"><div class="portfolio-title">Masterplan</div><div class="portfolio-loc">Puerto Williams</div></div></div>
+      </div>
+      <a href="portafolio.html" class="btn-secondary" style="display:inline-block; margin-top:2rem; border-color:var(--terra); color:var(--terra);">
+        <span class="es">Ver portafolio completo →</span>
+        <span class="en">View full portfolio →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
 <section id="mas-paginas" style="text-align:center;">
   <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
     <a href="blog.html" class="btn-secondary" style="border-color:var(--terra); color:var(--terra);">Blog</a>
@@ -784,8 +795,8 @@
 <!-- SOBRE MÍ (resumen) -->
 <section id="sobre-mi-resumen" style="max-width:900px;">
   <div class="section-tag"><span class="es">Sobre mí</span><span class="en">About me</span></div>
-  <div class="about-grid" style="grid-template-columns:180px 1fr; align-items:center; gap:2rem;">
-    <div style="width:100%;aspect-ratio:1/1;border-radius:50%;overflow:hidden;background-image:url('img/loreto-montana.jpg');background-size:210% auto;background-position:52% 32%;filter:saturate(0.9);" role="img" aria-label="Loreto Salazar — Refugio Nómada"></div>
+  <div class="about-resumen-grid">
+    <div class="about-resumen-photo" style="background-image:url('img/loreto-montana.jpg');background-size:210% auto;background-position:52% 32%;filter:saturate(0.9);" role="img" aria-label="Loreto Salazar — Refugio Nómada"></div>
     <div class="about-text">
       <p class="es">Soy Loreto Salazar Salina, arquitecta titulada con más de 10 años de experiencia en proyectos rurales, permisos DOM y planificación territorial en Chile. Actualmente navego el Atlántico en velero — desde el mar, sigo proyectando.</p>
       <p class="en">I'm Loreto Salazar Salina, licensed architect with over 10 years of experience in rural projects, DOM permits and territorial planning across Chile. Currently sailing the Atlantic — from the sea, I keep designing.</p>
