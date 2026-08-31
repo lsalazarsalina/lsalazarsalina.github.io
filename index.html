@@ -501,6 +501,39 @@
   .hero h1 { animation: fadeUp 0.6s 0.1s ease both; }
   .hero-desc { animation: fadeUp 0.6s 0.2s ease both; }
   .hero-cta { animation: fadeUp 0.6s 0.3s ease both; }
+  /* CHECKLIST DOM (embebido en home) */
+  .cl-wrap{ margin-top:2rem; }
+  .cl-step{ border-top:1px solid var(--border); padding:24px 0; }
+  .cl-step:last-of-type{ border-bottom:1px solid var(--border); }
+  .cl-step-label{ font-size:0.75rem; color:var(--terra); letter-spacing:0.02em; margin:0 0 4px; }
+  .cl-step h3{ font-family:'Cormorant Garamond', serif; font-weight:500; font-size:1.35rem; margin:0 0 14px; color:var(--dark); }
+  .cl-options{ display:flex; flex-wrap:wrap; gap:10px; }
+  .cl-opt{ border:1px solid var(--mid); background:transparent; color:var(--dark); padding:9px 16px; font-family:'DM Sans', sans-serif; font-size:0.88rem; cursor:pointer; transition:background 0.15s, color 0.15s, border-color 0.15s; }
+  .cl-opt:hover{ border-color:var(--terra); }
+  .cl-opt.active{ background:var(--terra); border-color:var(--terra); color:#fff; }
+  .cl-opt.cl-toggle.active{ background:#8FA67A; border-color:#8FA67A; color:#20301f; }
+  .cl-result{ margin-top:36px; display:none; }
+  .cl-result.show{ display:block; }
+  .cl-result-head{ display:flex; align-items:baseline; justify-content:space-between; border-bottom:2px solid var(--terra); padding-bottom:10px; margin-bottom:4px; }
+  .cl-result-head h3{ font-family:'Cormorant Garamond', serif; font-weight:500; font-size:1.5rem; margin:0; color:var(--dark); }
+  .cl-count{ font-size:0.85rem; color:var(--mid); white-space:nowrap; }
+  .cl-doc-list{ list-style:none; padding:0; margin:12px 0 0; }
+  .cl-doc-item{ display:flex; gap:12px; align-items:flex-start; padding:12px 0; border-bottom:1px solid var(--border); }
+  .cl-doc-item input[type=checkbox]{ margin-top:3px; width:16px; height:16px; accent-color:#8FA67A; flex-shrink:0; }
+  .cl-doc-item label{ cursor:pointer; font-size:0.95rem; }
+  .cl-doc-item .cl-why{ display:block; font-size:0.8rem; color:var(--mid); margin-top:2px; }
+  .cl-doc-item .cl-escala{ display:inline-block; font-size:0.72rem; color:var(--terra); border:1px solid var(--terra); padding:1px 7px; margin-top:6px; }
+  .cl-doc-item.cl-has-template label .cl-name::after{ content:" ●"; color:var(--accent); }
+  .cl-legend{ font-size:0.78rem; color:var(--mid); margin-top:14px; }
+  .cl-legend .cl-dot{ color:var(--accent); }
+  .cl-cta{ margin-top:28px; padding:20px; background:var(--terra-pale); border:1px solid var(--border); }
+  .cl-cta p{ margin:0 0 12px; font-size:0.9rem; color:var(--dark); }
+  .cl-cta a{ display:inline-block; background:var(--accent); color:#fff; text-decoration:none; font-size:0.85rem; padding:10px 18px; border-radius:2px; }
+  .cl-actions{ margin-top:24px; display:flex; gap:10px; }
+  .cl-actions button{ border:1px solid var(--mid); background:transparent; color:var(--mid); padding:8px 14px; font-size:0.8rem; cursor:pointer; font-family:'DM Sans', sans-serif; }
+  .cl-actions button:hover{ border-color:var(--terra); color:var(--terra); }
+  .cl-disclaimer{ font-size:0.75rem; color:var(--mid); margin-top:28px; max-width:60ch; }
+  @media print{ .cl-step, .cl-cta, .cl-actions{ display:none; } .cl-result{ display:block !important; } }
 </style>
 
 </head>
@@ -662,8 +695,46 @@
   </h2>
   <p class="plantillas-intro es">Elige el tipo de trámite —obra nueva, fusión, cambio de uso, proyecto sanitario— y obtén el listado de documentos exigidos, con escalas OGUC incluidas.</p>
   <p class="plantillas-intro en">Pick your permit type —new construction, merger, land use change, sanitary project— and get the required document list, OGUC scales included.</p>
-  <div style="background:white; border:1px solid var(--border); border-radius:6px; padding:1.5rem; box-shadow:0 12px 32px rgba(92,58,33,0.12); margin-top:2rem;">
-    <iframe id="checklist-home-frame" src="checklist-dom.html" title="Checklist de expediente DOM" style="width:100%; height:900px; border:1px solid var(--border); border-radius:4px; display:block;" loading="lazy"></iframe>
+
+  <div class="cl-wrap">
+    <div class="cl-step">
+      <p class="cl-step-label">01</p>
+      <h3>Tipo de obra</h3>
+      <div class="cl-options" id="tipo" role="radiogroup"></div>
+    </div>
+
+    <div class="cl-step" id="stepEstructura">
+      <p class="cl-step-label">02</p>
+      <h3>Estructura</h3>
+      <div class="cl-options" id="estructura" role="radiogroup"></div>
+    </div>
+
+    <div class="cl-step" id="stepCondiciones">
+      <p class="cl-step-label">03</p>
+      <h3>Condiciones del terreno y proyecto</h3>
+      <div class="cl-options" id="condiciones"></div>
+    </div>
+
+    <div class="cl-result" id="result">
+      <div class="cl-result-head">
+        <h3>Tu checklist</h3>
+        <span class="cl-count" id="count"></span>
+      </div>
+      <ul class="cl-doc-list" id="docList"></ul>
+      <p class="cl-legend"><span class="cl-dot">●</span> disponible como plantilla en la tienda</p>
+
+      <div class="cl-cta">
+        <p>Los documentos marcados con <span class="cl-dot">●</span> ya los tienes editables en formato Word, con normativa 2026 vigente.</p>
+        <a href="plantillas.html">Ver plantillas DOM →</a>
+      </div>
+
+      <div class="cl-actions">
+        <button onclick="window.print()">Imprimir checklist</button>
+        <button onclick="resetChecklist()">Volver a empezar</button>
+      </div>
+    </div>
+
+    <p class="cl-disclaimer">Herramienta de orientación general basada en la normativa vigente al armar este listado (LGUC/OGUC, NCh853:2021, DS N°15/2024 MINVU). Cada DOM puede exigir documentos adicionales según la comuna y el proyecto. Ante dudas, revisa tu caso con un arquitecto.</p>
   </div>
 </section>
 
@@ -714,7 +785,9 @@
 <section id="sobre-mi-resumen" style="max-width:900px;">
   <div class="section-tag"><span class="es">Sobre mí</span><span class="en">About me</span></div>
   <div class="about-grid" style="grid-template-columns:180px 1fr; align-items:center; gap:2rem;">
-    <img src="img/loreto-montana.jpg" style="width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:50%;filter:saturate(0.9);" alt="Loreto Salazar — Refugio Nómada">
+    <div style="width:100%;aspect-ratio:1/1;border-radius:50%;overflow:hidden;">
+      <img src="img/loreto-montana.jpg" style="width:100%;height:100%;object-fit:cover;display:block;filter:saturate(0.9);" alt="Loreto Salazar — Refugio Nómada">
+    </div>
     <div class="about-text">
       <p class="es">Soy Loreto Salazar Salina, arquitecta titulada con más de 10 años de experiencia en proyectos rurales, permisos DOM y planificación territorial en Chile. Actualmente navego el Atlántico en velero — desde el mar, sigo proyectando.</p>
       <p class="en">I'm Loreto Salazar Salina, licensed architect with over 10 years of experience in rural projects, DOM permits and territorial planning across Chile. Currently sailing the Atlantic — from the sea, I keep designing.</p>
@@ -749,6 +822,222 @@
   Loreto Salazar Arquitectura y Planificación Territorial EIRL · RUT 78.351.959-3 · Patente N°300833 · lsalazarsalina@gmail.com
 </footer>
 
+
+<script>
+// --- Checklist DOM (embebido) ---
+const clState = { tipo:null, estructura:null, condiciones:new Set() };
+
+const CL_TIPOS = [
+  {id:'nueva', label:'Obra Nueva'},
+  {id:'ampliacion', label:'Ampliación'},
+  {id:'regularizacion', label:'Regularización'},
+  {id:'alteracion', label:'Alteración / Reparación'},
+  {id:'cambio_uso', label:'Cambio de Uso de Suelo (Art. 55 LGUC)'},
+  {id:'fusion_rural', label:'Fusión Rural'},
+  {id:'fusion_urbana', label:'Fusión Urbana'},
+  {id:'sanitario_rural', label:'Proyecto Sanitario Rural (fosa + pozo absorbente)'},
+  {id:'sanitario_urbano', label:'Proyecto Agua Potable y Alcantarillado Urbano'},
+];
+
+const CL_TRAMITES_PREDIALES = ['cambio_uso','fusion_rural','fusion_urbana','sanitario_rural','sanitario_urbano'];
+
+const CL_ESTRUCTURAS = [
+  {id:'albanileria', label:'Albañilería / hormigón armado'},
+  {id:'madera', label:'Madera'},
+  {id:'mixta', label:'Mixta'},
+];
+
+const CL_CONDICIONES = [
+  {id:'napa', label:'Cercano a napa freática o zona de inundación'},
+  {id:'pendiente', label:'Pendiente de terreno > 45% o riesgo geológico'},
+  {id:'rural', label:'Terreno rural / fuera de límite urbano'},
+  {id:'subsidio', label:'Se postula o usa subsidio habitacional (DS10/27/49)'},
+  {id:'pareada', label:'Vivienda pareada, continua o edificio colectivo (comparte muros)'},
+  {id:'largo50', label:'Planta con más de 50 m de longitud'},
+];
+
+function clRenderOptions(containerId, items, multi){
+  const el = document.getElementById(containerId);
+  el.innerHTML = '';
+  items.forEach(it=>{
+    const b = document.createElement('button');
+    b.type='button';
+    b.className = 'cl-opt' + (multi ? ' cl-toggle' : '');
+    b.textContent = it.label;
+    b.onclick = ()=>{
+      if(multi){
+        if(clState.condiciones.has(it.id)){ clState.condiciones.delete(it.id); b.classList.remove('active'); }
+        else { clState.condiciones.add(it.id); b.classList.add('active'); }
+      } else {
+        if(containerId==='tipo') clState.tipo = it.id; else clState.estructura = it.id;
+        [...el.children].forEach(c=>c.classList.remove('active'));
+        b.classList.add('active');
+        if(containerId==='tipo'){
+          const esPredial = CL_TRAMITES_PREDIALES.includes(it.id);
+          document.getElementById('stepEstructura').style.display = esPredial ? 'none' : '';
+          document.getElementById('stepCondiciones').style.display = esPredial ? 'none' : '';
+        }
+      }
+      clUpdate();
+    };
+    el.appendChild(b);
+  });
+}
+
+function clDocs(){
+  const list = [];
+  const add = (name, why, hasTemplate, escala)=> list.push({name, why, hasTemplate, escala});
+
+  if(!clState.tipo) return list;
+
+  if(clState.tipo === 'cambio_uso'){
+    add('Certificado de Informaciones Previas (CIP) vigente', 'Acredita condición rural del predio', false);
+    add('Declaración jurada de dominio + certificado de dominio vigente', 'No mayor a 90 días, emitido por el Conservador de Bienes Raíces', false);
+    add('Carta de justificación del cambio de uso', 'Señala objetivo y nuevo uso que se dará al terreno', false);
+    add('Informe técnico del proyecto y planos', 'Ubicación, emplazamiento, plantas esquemáticas y siluetas de elevaciones', false);
+    add('Cuadro general de superficies', 'Superficie del predio y de lo edificado o a edificar', false);
+    add('Estudio de calidad del suelo', 'Cuando corresponda, Art. 5.1.15 OGUC', false);
+    add('Solicitud de Informe Favorable para Construcción (IFC)', 'Se tramita ante SEREMI de Agricultura, antes "Cambio de Uso de Suelo"', false);
+    add('Fotocopia de patente al día del arquitecto', 'Exigida junto al listado de documentos y planos numerados', false);
+    return list;
+  }
+
+  if(clState.tipo === 'fusion_rural' || clState.tipo === 'fusion_urbana'){
+    add('Solicitud de fusión firmada por el propietario', 'Declaración de dominio de los lotes a fusionar, Art. 3.1.3 OGUC', false);
+    add('Plano de fusión', 'Situación actual y propuesta: lotes, roles, medidas perimetrales, ubicación y cuadro de superficies, firmado por propietario y arquitecto', false, '1:500 o adecuada');
+    add('Certificado de dominio vigente de cada predio', 'No mayor a 60-90 días, emitido por el Conservador de Bienes Raíces', false);
+    add('Certificado de Informaciones Previas de cada predio', 'Uno por cada rol involucrado en la fusión', false);
+    add('Certificado de avalúo fiscal detallado de cada rol', 'Uno por cada predio a fusionar', false);
+    add('Copia de las escrituras de dominio', 'De todos los terrenos involucrados', false);
+    add('Levantamiento topográfico', 'Solo si es necesario rectificar deslindes existentes', false);
+    if(clState.tipo === 'fusion_rural'){
+      add('Certificado que acredite condición rural del predio', 'Predio fuera de límite urbano, sin recepción de urbanización', false);
+      add('Verificación de superficie mínima predial (DL N°3.516)', 'Aplica si a futuro se subdividirá el predio resultante; la fusión en sí no reduce superficie', false);
+    } else {
+      add('Certificado de urbanización o recepción de obras de urbanización', 'Los terrenos deben estar suficientemente urbanizados; si no, se requiere modificación al proyecto de loteo', false);
+    }
+    return list;
+  }
+
+  if(clState.tipo === 'sanitario_rural'){
+    add('Levantamiento topográfico con curvas de nivel', 'Base para ubicar fosa, pozo absorbente y pendientes', false, '1:200');
+    add('Prueba de absorción del terreno (índice K)', 'Determina factibilidad y dimensiones del pozo absorbente', false);
+    add('Memoria de cálculo sanitario', 'Caudal diario, volumen de fosa y superficie de pozo absorbente', true);
+    add('Planta general de alcantarillado particular', 'Vivienda, cajas de inspección, fosa, pozo y distancias a vecinos/fuentes de agua', false, '1:200 o 1:100');
+    add('Perfil de alcantarillado', 'Cotas de invert, profundidades y pendientes desde la vivienda al pozo', false, '1:100H / 1:50V');
+    add('Detalle de fosa séptica', 'Planta, corte longitudinal y transversal, materiales y ventilación', false, '1:50');
+    add('Detalle de pozo absorbente', 'Planta y sección con capas de relleno drenante', false, '1:50');
+    add('Detalle de cajas de inspección', 'Dimensiones interiores y profundidad variable según cota invert', false, '1:20');
+    add('Detalle de conexión de agua potable', 'Arranque, medidor y llegada a la vivienda, si hay fuente propia o de condominio', false, '1:50');
+    add('Especificaciones técnicas y plan de mantención', 'Materiales, periodicidad de limpieza y responsabilidad del propietario', false);
+    add('Aprobación de la Autoridad Sanitaria (SEREMI de Salud)', 'Califica la factibilidad de la solución particular antes de construir', false);
+    return list;
+  }
+
+  if(clState.tipo === 'sanitario_urbano'){
+    add('Certificado de Factibilidad de servicios sanitarios', 'Solicitado ante la empresa sanitaria (Aguas Andinas u otra) antes de proyectar, Art. 13 RIDAA', false);
+    add('Formulario de antecedentes del propietario y proyectista', 'Nombre, domicilio, RUT y firma de ambos, Art. 14 RIDAA', false);
+    add('Antecedentes del inmueble', 'CIP, croquis de ubicación, datos de arranque y unión domiciliaria existentes', false);
+    add('Datos del proyecto', 'Tipo y destino de la obra, N° de edificaciones y pisos, consumo estimado de agua potable (m³/día) y caudal de aguas servidas', false);
+    add('Planta general de redes interiores de agua potable y alcantarillado', 'Trazado de cañerías, artefactos y puntos de descarga', false, '1:75 (o la exigida por la empresa sanitaria)');
+    add('Perfil longitudinal de alcantarillado', 'Cotas de invert y pendientes hasta la unión domiciliaria', false, '1:100H / 1:50V');
+    add('Detalle de arranque de agua potable y medidor', 'Según norma NCh 1730', false, '1:50');
+    add('Detalle de cámara de inspección y unión domiciliaria', 'Punto de conexión a la red pública de alcantarillado', false, '1:20');
+    add('Informe de revisor independiente', 'Exigido en proyectos de mayor envergadura, Art. 25 RIDAA', false);
+    add('Firma de profesional habilitado (Art. 9 RIDAA)', 'Proyectista sanitario o arquitecto habilitado ante la empresa concesionaria', false);
+    return list;
+  }
+
+  const escPlantas = clState.condiciones.has('largo50') ? '1:100 (planta > 50 m de largo, Art. 5.1.4 OGUC)' : '1:50';
+
+  add('Formulario Único de Edificación', 'Base para cualquier trámite en DOM', false);
+  add('Certificado de Informaciones Previas (CIP)', 'Define normativa urbanística aplicable al predio', false);
+  add('Declaración simple de dominio del propietario', 'Acredita quién es el titular del predio', false);
+
+  add('Plano de ubicación', 'Posición del predio respecto a calles y referencias del entorno', false, '1:5.000 (o adecuada al sector)');
+  add('Plano de emplazamiento', 'Deslindes, distanciamientos, rasantes y accesos peatonales/vehiculares', false, '1:500');
+  add('Plantas de arquitectura de todos los pisos', 'Recintos acotados, destinos y cuadro de superficies', false, escPlantas);
+  add('Cortes y elevaciones', 'Al menos un corte; ilustran niveles, altura y línea de suelo natural', false, escPlantas);
+  add('Cuadro de superficies', 'Cálculo de superficie edificada según Art. 5.1.11 OGUC', false);
+
+  add('Especificaciones Técnicas (EETT)', 'Describe materialidad y sistema constructivo', true);
+  add('Memoria explicativa', 'Sustenta el proyecto ante el revisor', false);
+  add('Presupuesto estimado de la obra', 'Base para el cálculo de derechos municipales', false);
+
+  if(clState.tipo === 'regularizacion'){
+    add('Declaración jurada simple de antigüedad', 'Requisito propio de regularización', false);
+  }
+  if(clState.tipo === 'ampliacion' || clState.tipo === 'nueva'){
+    add('Levantamiento topográfico acotado', 'Exigido si la información no está en las plantas de arquitectura', false);
+  }
+
+  if(clState.estructura === 'albanileria' || clState.estructura === 'mixta'){
+    add('Carta de exención de firma de cálculo estructural (o cálculo estructural si aplica)', 'Según envergadura y material estructural, Art. 5.1.7 OGUC', true);
+  }
+  if(clState.estructura === 'madera' || clState.estructura === 'mixta'){
+    add('Memoria de cálculo estructura de madera', 'Certificación NCh de la solución en madera', false);
+  }
+
+  add('Informe térmico (DS N°15/2024 MINVU)', 'Exigido desde nov. 2025 para toda vivienda nueva', true);
+  add('Memoria higrotérmica', 'Complementa el informe térmico en muros y techumbre', true);
+  add('Resistencia al fuego NCh 3684', 'Según tipo de uso y material de la construcción', true);
+
+  if(clState.condiciones.has('pareada')){
+    add('Informe de resistencia acústica', 'Muro medianero comparte unidades: exige NCh 2786/ISO 717 según Art. 4.1.4-4.1.5 OGUC', true);
+  }
+  if(clState.condiciones.has('napa')){
+    add('Informe de napa freática', 'Terreno cercano a napa o zona de riesgo de inundación', true);
+  }
+  if(clState.condiciones.has('pendiente')){
+    add('Estudio de mecánica de suelos / cálculo Meyerhof', 'Pendiente pronunciada o riesgo geológico en el terreno', true);
+  }
+  if(clState.condiciones.has('rural')){
+    add('Solicitud de cambio de uso de suelo (Art. 55 LGUC)', 'Predio fuera de límite urbano', false);
+  }
+  if(clState.condiciones.has('subsidio')){
+    add('Certificado de subsidio y presupuesto detallado', 'Exigido por SERVIU para tramitar el subsidio', false);
+  }
+
+  return list;
+}
+
+function clUpdate(){
+  const list = clDocs();
+  const result = document.getElementById('result');
+  const docList = document.getElementById('docList');
+  const count = document.getElementById('count');
+
+  if(!clState.tipo){ result.classList.remove('show'); return; }
+
+  docList.innerHTML = '';
+  list.forEach((d,i)=>{
+    const li = document.createElement('li');
+    li.className = 'cl-doc-item' + (d.hasTemplate ? ' cl-has-template' : '');
+    li.innerHTML = `
+      <input type="checkbox" id="cldoc${i}">
+      <label for="cldoc${i}"><span class="cl-name">${d.name}</span><span class="cl-why">${d.why}</span>${d.escala ? `<span class="cl-escala">Escala ${d.escala}</span>` : ''}</label>
+    `;
+    docList.appendChild(li);
+  });
+  count.textContent = list.length + ' documentos';
+  result.classList.add('show');
+}
+
+function resetChecklist(){
+  clState.tipo = null; clState.estructura = null; clState.condiciones = new Set();
+  clRenderOptions('tipo', CL_TIPOS, false);
+  clRenderOptions('estructura', CL_ESTRUCTURAS, false);
+  clRenderOptions('condiciones', CL_CONDICIONES, true);
+  document.getElementById('stepEstructura').style.display = '';
+  document.getElementById('stepCondiciones').style.display = '';
+  document.getElementById('result').classList.remove('show');
+  document.getElementById('checklist-preview').scrollIntoView({behavior:'smooth'});
+}
+
+clRenderOptions('tipo', CL_TIPOS, false);
+clRenderOptions('estructura', CL_ESTRUCTURAS, false);
+clRenderOptions('condiciones', CL_CONDICIONES, true);
+</script>
 
 <script>
   function setLang(lang) {
