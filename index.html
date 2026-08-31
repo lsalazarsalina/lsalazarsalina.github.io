@@ -652,54 +652,56 @@
 <hr class="section-divider">
 
 <!-- HERRAMIENTA: CHECKLIST DOM (prioridad alta) -->
-<section id="checklist-preview" style="max-width:700px;">
-  <div class="section-tag"><span class="es">Herramientas</span><span class="en">Tools</span></div>
-  <h2 class="section-title">
-    <span class="es">Arma tu checklist<br><em>DOM al instante.</em></span>
-    <span class="en">Build your<br><em>DOM checklist instantly.</em></span>
-  </h2>
-  <p class="plantillas-intro es">Elige el tipo de trámite —obra nueva, fusión, cambio de uso, proyecto sanitario— y obtén el listado de documentos exigidos, con escalas OGUC incluidas.</p>
-  <p class="plantillas-intro en">Pick your permit type —new construction, merger, land use change, sanitary project— and get the required document list, OGUC scales included.</p>
+<section id="checklist-preview" style="max-width:100%; background:#8FA67A; padding:4rem 2rem; margin:0;">
+  <div style="max-width:700px; margin:0 auto;">
+    <div class="section-tag" style="color:rgba(32,48,31,0.65);"><span class="es">Herramientas</span><span class="en">Tools</span></div>
+    <h2 class="section-title" style="color:#20301f;">
+      <span class="es">Arma tu checklist<br><em style="color:#fff;">DOM al instante.</em></span>
+      <span class="en">Build your<br><em style="color:#fff;">DOM checklist instantly.</em></span>
+    </h2>
+    <p class="plantillas-intro es" style="color:rgba(32,48,31,0.8);">Elige el tipo de trámite —obra nueva, fusión, cambio de uso, proyecto sanitario— y obtén el listado de documentos exigidos, con escalas OGUC incluidas.</p>
+    <p class="plantillas-intro en" style="color:rgba(32,48,31,0.8);">Pick your permit type —new construction, merger, land use change, sanitary project— and get the required document list, OGUC scales included.</p>
 
-  <div class="cl-wrap">
-    <div class="cl-step">
-      <p class="cl-step-label">01</p>
-      <h3>Tipo de obra</h3>
-      <div class="cl-options" id="tipo" role="radiogroup"></div>
-    </div>
-
-    <div class="cl-step" id="stepEstructura">
-      <p class="cl-step-label">02</p>
-      <h3>Estructura</h3>
-      <div class="cl-options" id="estructura" role="radiogroup"></div>
-    </div>
-
-    <div class="cl-step" id="stepCondiciones">
-      <p class="cl-step-label">03</p>
-      <h3>Condiciones del terreno y proyecto</h3>
-      <div class="cl-options" id="condiciones"></div>
-    </div>
-
-    <div class="cl-result" id="result">
-      <div class="cl-result-head">
-        <h3>Tu checklist</h3>
-        <span class="cl-count" id="count"></span>
-      </div>
-      <ul class="cl-doc-list" id="docList"></ul>
-      <p class="cl-legend"><span class="cl-dot">●</span> disponible como plantilla en la tienda</p>
-
-      <div class="cl-cta">
-        <p>Los documentos marcados con <span class="cl-dot">●</span> ya los tienes editables en formato Word, con normativa 2026 vigente.</p>
-        <a href="plantillas.html">Ver plantillas DOM →</a>
+    <div class="cl-wrap" style="background:#fff; border-radius:6px; padding:1.75rem 2rem; box-shadow:0 20px 50px rgba(0,0,0,0.25); margin-top:2rem;">
+      <div class="cl-step">
+        <p class="cl-step-label">01</p>
+        <h3>Tipo de obra</h3>
+        <div class="cl-options" id="tipo" role="radiogroup"></div>
       </div>
 
-      <div class="cl-actions">
-        <button onclick="window.print()">Imprimir checklist</button>
-        <button onclick="resetChecklist()">Volver a empezar</button>
+      <div class="cl-step" id="stepEstructura">
+        <p class="cl-step-label">02</p>
+        <h3>Estructura</h3>
+        <div class="cl-options" id="estructura" role="radiogroup"></div>
       </div>
-    </div>
 
-    <p class="cl-disclaimer">Herramienta de orientación general basada en la normativa vigente al armar este listado (LGUC/OGUC, NCh853:2021, DS N°15/2024 MINVU). Cada DOM puede exigir documentos adicionales según la comuna y el proyecto. Ante dudas, revisa tu caso con un arquitecto.</p>
+      <div class="cl-step" id="stepCondiciones">
+        <p class="cl-step-label">03</p>
+        <h3>Condiciones del terreno y proyecto</h3>
+        <div class="cl-options" id="condiciones"></div>
+      </div>
+
+      <div class="cl-result" id="result">
+        <div class="cl-result-head">
+          <h3>Tu checklist</h3>
+          <span class="cl-count" id="count"></span>
+        </div>
+        <ul class="cl-doc-list" id="docList"></ul>
+        <p class="cl-legend"><span class="cl-dot">●</span> disponible como plantilla en la tienda</p>
+
+        <div class="cl-cta">
+          <p>Los documentos marcados con <span class="cl-dot">●</span> ya los tienes editables en formato Word, con normativa 2026 vigente.</p>
+          <a href="plantillas.html">Ver plantillas DOM →</a>
+        </div>
+
+        <div class="cl-actions">
+          <button onclick="window.print()">Imprimir checklist</button>
+          <button onclick="resetChecklist()">Volver a empezar</button>
+        </div>
+      </div>
+
+      <p class="cl-disclaimer">Herramienta de orientación general basada en la normativa vigente al armar este listado (LGUC/OGUC, NCh853:2021, DS N°15/2024 MINVU). Cada DOM puede exigir documentos adicionales según la comuna y el proyecto. Ante dudas, revisa tu caso con un arquitecto.</p>
+    </div>
   </div>
 </section>
 
@@ -837,7 +839,7 @@
 <!-- FOOTER CORREGIDO CON IMAGEN PEQUEÑA -->
 <footer>
   <img src="mundo.jpg" alt="" class="footer-globe" style="display: block; margin: 0 auto 10px; width: 170px; height: auto; mix-blend-mode: multiply;">
-  Loreto Salazar Arquitectura y Planificación Territorial EIRL · RUT 78.351.959-3 · Patente N°300833 · lsalazarsalina@gmail.com
+  Refugio Nómada, Chile · RUT 78.351.959-3 · Patente N°300833 · lsalazarsalina@gmail.com
 </footer>
 
 
