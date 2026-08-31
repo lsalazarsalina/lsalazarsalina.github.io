@@ -26,9 +26,18 @@
     line-height:1.5;
   }
   .wrap{
-    max-width:640px;
+    max-width:1000px;
     margin:0 auto;
     padding:56px 24px 96px;
+  }
+  .two-col{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:48px;
+    align-items:start;
+  }
+  @media (max-width:800px){
+    .two-col{ grid-template-columns:1fr; gap:0; }
   }
   h1{
     font-family:'Cormorant Garamond', serif;
@@ -211,23 +220,26 @@
   <h1>Checklist de expediente DOM</h1>
   <p class="sub">Responde según tu proyecto y arma el listado de documentos que probablemente te va a pedir la Dirección de Obras. Es una guía de orientación, no reemplaza la revisión de un profesional.</p>
 
-  <div class="step">
-    <p class="step-label">01</p>
-    <h2>Tipo de obra</h2>
-    <div class="options" id="tipo" role="radiogroup"></div>
-  </div>
+  <div class="two-col">
+    <div class="two-col-steps">
+      <div class="step">
+        <p class="step-label">01</p>
+        <h2>Tipo de obra</h2>
+        <div class="options" id="tipo" role="radiogroup"></div>
+      </div>
 
-  <div class="step" id="stepEstructura">
-    <p class="step-label">02</p>
-    <h2>Estructura</h2>
-    <div class="options" id="estructura" role="radiogroup"></div>
-  </div>
+      <div class="step" id="stepEstructura">
+        <p class="step-label">02</p>
+        <h2>Estructura</h2>
+        <div class="options" id="estructura" role="radiogroup"></div>
+      </div>
 
-  <div class="step" id="stepCondiciones">
-    <p class="step-label">03</p>
-    <h2>Condiciones del terreno y proyecto</h2>
-    <div class="options" id="condiciones"></div>
-  </div>
+      <div class="step" id="stepCondiciones">
+        <p class="step-label">03</p>
+        <h2>Condiciones del terreno y proyecto</h2>
+        <div class="options" id="condiciones"></div>
+      </div>
+    </div>
 
   <div class="result" id="result">
     <div class="result-head">
@@ -246,6 +258,7 @@
       <button onclick="window.print()">Imprimir checklist</button>
       <button onclick="reset()">Volver a empezar</button>
     </div>
+  </div>
   </div>
 
   <p class="disclaimer">Herramienta de orientación general basada en la normativa vigente al armar este listado (LGUC/OGUC, NCh853:2021, DS N°15/2024 MINVU). Cada DOM puede exigir documentos adicionales según la comuna y el proyecto. Ante dudas, revisa tu caso con un arquitecto.</p>
@@ -383,6 +396,7 @@ function docs(){
     add('Formulario de solicitud de regularización', 'Permiso y recepción simultánea ante la DOM, Ley 20.898', false);
     add('Declaración simple de dominio y ausencia de reclamos', 'Sin reclamaciones pendientes por incumplimiento urbanístico en DOM o Juzgado de Policía Local', false);
     add('Certificado de avalúo fiscal (SII)', 'Vigente a la fecha de construcción declarada (antes del 4 de febrero de 2016)', false);
+    add('Certificado de avalúo fiscal detallado', 'Base para el cálculo del aporte/derechos municipales de regularización', false);
     add('Especificaciones técnicas resumidas', 'Descripción simplificada de materialidad y sistema constructivo', false);
     add('Plano de emplazamiento', 'Deslindes, distanciamientos y ubicación de lo construido', false, '1:500');
     add('Plano de planta de lo existente', 'Recintos acotados y cuadro de superficies de la vivienda o ampliación', false, '1:50');
