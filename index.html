@@ -125,7 +125,7 @@
     margin: 60px auto 0; /* AJUSTE: Separación de la imagen del menú */
     position: relative;
     overflow: hidden;
-    background: url('img/estructura-calle.jpg') center 35% / cover no-repeat;
+    background: url('img/estructura-calle.jpg') 55% 58% / cover no-repeat;
   }
 
   .hero::after {
@@ -138,8 +138,8 @@
 
   .hero-inner {
     width: 100%;
-    max-width: 900px;
-    margin: 0 auto;
+    max-width: 560px;
+    margin: 0;
     position: relative;
     z-index: 1;
     background: rgba(20, 13, 8, 0.4);
@@ -496,7 +496,7 @@
     .blog-float-btn .blog-float-text { display: none; }
     .blog-float-btn { padding: 0.75rem; font-size: 0.85rem; }
     .hero { min-height: 85vh; padding: 30px 1.5em 3rem; align-items: center; margin-top: 60px; /* Mantiene la separación en móvil */ }
-    .hero-inner { padding: 1.5rem 1.5rem; }
+    .hero-inner { padding: 1.5rem 1.5rem; max-width: 100%; }
     .hero-logo { width: 110px; height: 110px; margin-bottom: 0.75rem; }
     .hero-desc { margin-bottom: 2rem; }
     .hero-cta { gap: 0.75rem; }
@@ -652,15 +652,15 @@
 <hr class="section-divider">
 
 <!-- HERRAMIENTA: CHECKLIST DOM (prioridad alta) -->
-<section id="checklist-preview" style="max-width:100%; background:#8FA67A; padding:4rem 2rem; margin:0;">
+<section id="checklist-preview" style="max-width:100%; background:var(--terra-pale); padding:4rem 2rem; margin:0;">
   <div style="max-width:700px; margin:0 auto;">
-    <div class="section-tag" style="color:rgba(32,48,31,0.65);"><span class="es">Herramientas</span><span class="en">Tools</span></div>
-    <h2 class="section-title" style="color:#20301f;">
-      <span class="es">Arma tu checklist<br><em style="color:#fff;">DOM al instante.</em></span>
-      <span class="en">Build your<br><em style="color:#fff;">DOM checklist instantly.</em></span>
+    <div class="section-tag" style="color:var(--terra);"><span class="es">Herramientas</span><span class="en">Tools</span></div>
+    <h2 class="section-title" style="color:var(--dark);">
+      <span class="es">Arma tu checklist<br><em style="color:var(--accent);">DOM al instante.</em></span>
+      <span class="en">Build your<br><em style="color:var(--accent);">DOM checklist instantly.</em></span>
     </h2>
-    <p class="plantillas-intro es" style="color:rgba(32,48,31,0.8);">Elige el tipo de trámite —obra nueva, fusión, cambio de uso, proyecto sanitario— y obtén el listado de documentos exigidos, con escalas OGUC incluidas.</p>
-    <p class="plantillas-intro en" style="color:rgba(32,48,31,0.8);">Pick your permit type —new construction, merger, land use change, sanitary project— and get the required document list, OGUC scales included.</p>
+    <p class="plantillas-intro es" style="color:var(--mid);">Elige el tipo de trámite —obra nueva, fusión, cambio de uso, proyecto sanitario— y obtén el listado de documentos exigidos, con escalas OGUC incluidas.</p>
+    <p class="plantillas-intro en" style="color:var(--mid);">Pick your permit type —new construction, merger, land use change, sanitary project— and get the required document list, OGUC scales included.</p>
 
     <div class="cl-wrap" style="background:#fff; border-radius:6px; padding:1.75rem 2rem; box-shadow:0 20px 50px rgba(0,0,0,0.25); margin-top:2rem;">
       <div class="cl-step">
