@@ -447,10 +447,18 @@
   .contact-nota strong { color: var(--terra); font-style: normal; font-weight: 600; }
 
   /* FOOTER */
-  footer { border-top: 15px solid var(--border); padding: 2cm 2rem 2rem; min-height: 300px; display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; position: relative; overflow: hidden; background: rgb(255, 255, 255); }
-  .footer-globe { position: absolute; left: 50%; transform: translateX(-50%); bottom: -150px; width: 640px; opacity: 0.95; pointer-events: none; }
-  .footer-name { font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.1em; color: var(--muted); position: relative; z-index: 3; width: 100%; }
-  .footer-patent { font-size: 0.75rem; letter-spacing: 0.2em; color: var(--muted); position: relative; z-index: 3; width: 100%; }
+ footer {
+  width: 100%;                  /* Obliga a que ocupe todo el ancho de la pantalla */
+  position: relative;           /* Evita que quede flotando sobre otros elementos */
+  clear: both;                  /* Empuja el footer debajo de cualquier imagen o bloque */
+  font-size: 12px;              /* Hace la letra más pequeña (puedes bajarlo a 11px si lo necesitas) */
+  text-align: center;           /* Centra el texto */
+  padding: 20px 15px;           /* Da espacio arriba/abajo y a los lados */
+  background-color: #F7F4EE;    /* Usa el mismo color crema de tu menú para tapar la imagen */
+  box-sizing: border-box;       /* Evita que el padding desborde el ancho de la web */
+  z-index: 10;                  /* Asegura que quede por encima de la imagen si hay cruce */
+  margin-top: 40px;             /* Separa el footer de la imagen que tiene arriba */
+}
 
   /* LANG CONTENT */
   .en { display: none; }
@@ -484,18 +492,6 @@
     .hero-cta { gap: 0.75rem; }
     .hero-cta a { padding: 0.6rem 1.2rem; font-size: 0.7rem; }
 
-footer {
-  width: 100%;                  /* Obliga a que ocupe todo el ancho de la pantalla */
-  position: relative;           /* Evita que quede flotando sobre otros elementos */
-  clear: both;                  /* Empuja el footer debajo de cualquier imagen o bloque */
-  font-size: 12px;              /* Hace la letra más pequeña (puedes bajarlo a 11px si lo necesitas) */
-  text-align: center;           /* Centra el texto */
-  padding: 20px 15px;           /* Da espacio arriba/abajo y a los lados */
-  background-color: #F7F4EE;    /* Usa el mismo color crema de tu menú para tapar la imagen */
-  box-sizing: border-box;       /* Evita que el padding desborde el ancho de la web */
-  z-index: 10;                  /* Asegura que quede por encima de la imagen si hay cruce */
-  margin-top: 40px;             /* Separa el footer de la imagen que tiene arriba */
-}
     #herramientas iframe { height: 480px; }
   }
 
