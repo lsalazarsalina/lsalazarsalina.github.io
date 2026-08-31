@@ -860,9 +860,12 @@ const CL_TIPOS = [
   {id:'fusion_urbana', label:'Fusión Urbana'},
   {id:'sanitario_rural', label:'Proyecto Sanitario Rural (fosa + pozo absorbente)'},
   {id:'sanitario_urbano', label:'Proyecto Agua Potable y Alcantarillado Urbano'},
+  {id:'ley_mono', label:'Regularización Ley 20.898 (Ley del Mono)'},
+  {id:'declaracion_jurada', label:'Declaración Jurada de Obra Menor (THA)'},
+  {id:'concesion_maritima', label:'Concesión Marítima'},
 ];
 
-const CL_TRAMITES_PREDIALES = ['cambio_uso','fusion_rural','fusion_urbana','sanitario_rural','sanitario_urbano'];
+const CL_TRAMITES_PREDIALES = ['cambio_uso','fusion_rural','fusion_urbana','sanitario_rural','sanitario_urbano','ley_mono','declaracion_jurada','concesion_maritima'];
 
 const CL_ESTRUCTURAS = [
   {id:'albanileria', label:'Albañilería / hormigón armado'},
@@ -968,6 +971,44 @@ function clDocs(){
     add('Detalle de cámara de inspección y unión domiciliaria', 'Punto de conexión a la red pública de alcantarillado', false, '1:20');
     add('Informe de revisor independiente', 'Exigido en proyectos de mayor envergadura, Art. 25 RIDAA', false);
     add('Firma de profesional habilitado (Art. 9 RIDAA)', 'Proyectista sanitario o arquitecto habilitado ante la empresa concesionaria', false);
+    return list;
+  }
+
+  if(clState.tipo === 'ley_mono'){
+    add('Formulario de solicitud de regularización', 'Permiso y recepción simultánea ante la DOM, Ley 20.898', false);
+    add('Declaración simple de dominio y ausencia de reclamos', 'Sin reclamaciones pendientes por incumplimiento urbanístico en DOM o Juzgado de Policía Local', false);
+    add('Certificado de avalúo fiscal (SII)', 'Vigente a la fecha de construcción declarada (antes del 4 de febrero de 2016)', false);
+    add('Especificaciones técnicas resumidas', 'Descripción simplificada de materialidad y sistema constructivo', false);
+    add('Plano de emplazamiento', 'Deslindes, distanciamientos y ubicación de lo construido', false, '1:500');
+    add('Plano de planta de lo existente', 'Recintos acotados y cuadro de superficies de la vivienda o ampliación', false, '1:50');
+    add('Informe profesional de cumplimiento normativo', 'Certifica estabilidad, seguridad y habitabilidad de lo construido, firmado por profesional competente', false);
+    add('Certificado de exención de derechos municipales (si aplica)', 'Propietario mayor de 65 años o residente inscrito en el Registro Nacional de la Discapacidad', false);
+    add('Verificación de plazo y requisitos de superficie/avalúo', 'Vivienda ≤90 m² y avalúo <1.000 UF, o ≤140 m² y avalúo <2.000 UF; ingreso de solicitud hasta el 31-12-2027', false);
+    return list;
+  }
+
+  if(clState.tipo === 'declaracion_jurada'){
+    add('Formulario de Solicitud de Permiso o Declaración Jurada de Inicio de Obras', 'Formulario MINVU 15-1, régimen de Técnicas Habilitantes Alternativas, DS N°10/2025', false);
+    add('Verificación de requisitos copulativos OGUC', 'La obra no está en área de riesgo, utilidad pública, franja de restricción ni inmueble con protección patrimonial', false);
+    add('Verificación de que la obra califica como obra menor habilitable por DJ', 'Ampliación, alteración, reparación, reconstrucción o demolición dentro de los supuestos del art. 5.1.4 OGUC', false);
+    add('Planos o croquis de la obra', 'Suficientes para identificar la intervención declarada', false);
+    add('Especificaciones técnicas resumidas', 'Materialidad y sistema constructivo de la obra menor', false);
+    add('Declaración de superficie y destino', 'Ampliación hasta 100 m² u otros límites según la modalidad de obra menor', false);
+    add('Registro fotográfico del estado actual', 'Respaldo del estado previo a la ejecución, si la DOM lo solicita', false);
+    add('Nota de responsabilidad', 'La DOM mantiene facultad de fiscalización posterior sobre la obra declarada', false);
+    return list;
+  }
+
+  if(clState.tipo === 'concesion_maritima'){
+    add('Solicitud en el Portal de Concesiones', 'Ingreso electrónico ante la Subsecretaría para las Fuerzas Armadas (Ministerio de Defensa)', false);
+    add('Descripción del área solicitada', 'Individualizar cada sector según su objeto y tramos, con coordenadas', false);
+    add('Plano del sector solicitado', 'Levantamiento georreferenciado del área de playa, terreno de playa o fondo de mar', false);
+    add('Memoria del proyecto o actividad a desarrollar', 'Describe el uso que se dará a la concesión (turístico, acuícola, portuario, habitacional, etc.)', false);
+    add('Certificado de la Subsecretaría de Pesca y Acuicultura', 'Si existen concesiones de acuicultura, áreas de manejo bentónico o ECMPO en el sector', false);
+    add('Certificado SEREMI de Obras Públicas', 'Indica si el sector afecta programas de vialidad u obras portuarias en ejecución o proyectadas', false);
+    add('Certificado SAG (si corresponde)', 'Zonas norte del país, radio de 2 km de guaneras', false);
+    add('Antecedentes del solicitante', 'Persona natural o jurídica, con representación legal si corresponde', false);
+    add('Nota de plazos', 'Renovación o arriendo/cesión de uso: presentar con al menos 12 meses de anticipación al vencimiento (DS N°9/2018)', false);
     return list;
   }
 
