@@ -122,7 +122,7 @@
     align-items: flex-end;
     padding: 52px 4em 5rem;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 60px auto 0; /* AJUSTE: Separación de la imagen del menú */
     position: relative;
     overflow: hidden;
     background: url('img/loreto-mar.jpg') center 70% / cover no-repeat;
@@ -446,19 +446,20 @@
   .contact-nota p { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-style: italic; color: var(--mid); line-height: 1.75; }
   .contact-nota strong { color: var(--terra); font-style: normal; font-weight: 600; }
 
-  /* FOOTER */
- footer {
-  width: 100%;                  /* Obliga a que ocupe todo el ancho de la pantalla */
-  position: relative;           /* Evita que quede flotando sobre otros elementos */
-  clear: both;                  /* Empuja el footer debajo de cualquier imagen o bloque */
-  font-size: 12px;              /* Hace la letra más pequeña (puedes bajarlo a 11px si lo necesitas) */
-  text-align: center;           /* Centra el texto */
-  padding: 20px 15px;           /* Da espacio arriba/abajo y a los lados */
-  background-color: #F7F4EE;    /* Usa el mismo color crema de tu menú para tapar la imagen */
-  box-sizing: border-box;       /* Evita que el padding desborde el ancho de la web */
-  z-index: 10;                  /* Asegura que quede por encima de la imagen si hay cruce */
-  margin-top: 40px;             /* Separa el footer de la imagen que tiene arriba */
-}
+  /* FOOTER - AJUSTADO PARA CORREGIR PROBLEMA */
+  footer {
+    width: 100%;
+    position: relative;
+    clear: both;
+    font-size: 12px;
+    text-align: center;
+    padding: 20px 15px;
+    background-color: #F7F4EE;
+    box-sizing: border-box;
+    z-index: 10;
+    margin-top: 40px;
+    border-top: 1px solid var(--border); /* Añadida línea superior sutil */
+  }
 
   /* LANG CONTENT */
   .en { display: none; }
@@ -486,7 +487,7 @@
 
     .blog-float-btn .blog-float-text { display: none; }
     .blog-float-btn { padding: 0.75rem; font-size: 0.85rem; }
-    .hero { min-height: 85vh; padding: 30px 1.5em 3rem; align-items: center; }
+    .hero { min-height: 85vh; padding: 30px 1.5em 3rem; align-items: center; margin-top: 60px; /* Mantiene la separación en móvil */ }
     .hero-logo { width: 110px; height: 110px; margin-bottom: 0.75rem; }
     .hero-desc { margin-bottom: 2rem; }
     .hero-cta { gap: 0.75rem; }
@@ -812,9 +813,8 @@
   </div>
 </section>
 
+<!-- FOOTER CORREGIDO -->
 <footer>
-  <img src="mundo.jpg" alt="" class="footer-globe">
-  <footer>
   Loreto Salazar Arquitectura y Planificación Territorial EIRL · RUT 78.351.959-3 · Patente N°300833 · lsalazarsalina@gmail.com
 </footer>
 
@@ -865,7 +865,6 @@
     });
   }
 </script>
-
 
 </body>
 </html>
