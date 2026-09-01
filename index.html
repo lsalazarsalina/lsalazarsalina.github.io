@@ -250,7 +250,7 @@
   /* SECTIONS */
   section {
     padding: 2.5rem 2rem;
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
   }
 
@@ -480,6 +480,7 @@
     .about-resumen-grid { flex-direction: column; text-align: center; }
     .about-resumen-photo { width: 140px; height: 140px; }
     .two-col-row { grid-template-columns: 1fr; gap: 3rem; }
+    .planimetria-row { grid-template-columns: 1fr; gap: 1.5rem; }
     .services-grid { grid-template-columns: 1fr; }
     .plantillas-grid { grid-template-columns: 1fr; }
     .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
@@ -551,6 +552,7 @@
 
   /* PLANTILLAS + PROYECTOS dos columnas */
   .two-col-row{ display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; }
+  .planimetria-row{ display:grid; grid-template-columns:repeat(3, 1fr); gap:1.25rem; margin-top:2.5rem; }
 
 </style>
 
@@ -655,7 +657,7 @@
 
 <!-- HERRAMIENTA: CHECKLIST DOM (prioridad alta) -->
 <section id="checklist-preview" style="max-width:100%; background:var(--terra-pale); padding:4rem 2rem; margin:0;">
-  <div style="max-width:1040px; margin:0 auto;">
+  <div style="max-width:1200px; margin:0 auto;">
     <div class="section-tag" style="color:var(--terra);"><span class="es">Herramientas</span><span class="en">Tools</span></div>
     <h2 class="section-title" style="color:var(--dark);">
       <span class="es">Arma tu checklist<br><em style="color:var(--accent);">DOM al instante.</em></span>
@@ -781,7 +783,7 @@
 <hr class="section-divider">
 
 <!-- PLANIMETRÍA TERRITORIAL -->
-<section id="planimetria" style="max-width:900px; text-align:center;">
+<section id="planimetria" style="text-align:center;">
   <div class="section-tag"><span class="es">Territorio</span><span class="en">Territory</span></div>
   <h2 class="section-title">
     <span class="es">Cada proyecto empieza<br><em>leyendo el territorio.</em></span>
@@ -789,6 +791,21 @@
   </h2>
   <img src="img/mapa-melipilla-pomaire.jpg" alt="Plano territorial Melipilla, Pomaire" style="width:100%; max-width:640px; margin:2rem auto 0.75rem; display:block; border:1px solid var(--border); border-radius:2px;">
   <p style="font-size:0.85rem; color:var(--mid);"><span class="es">Melipilla · Pomaire — planimetría de base para estudios de planificación territorial</span><span class="en">Melipilla · Pomaire — base planimetry for territorial planning studies</span></p>
+
+  <div class="planimetria-row">
+    <div>
+      <img src="img/mapa-sanjose.jpg" alt="Plano territorial San José" style="width:100%; aspect-ratio:1/1; object-fit:cover; display:block; border:1px solid var(--border); border-radius:2px;">
+      <p style="font-size:0.8rem; color:var(--mid); margin-top:0.5rem;">San José</p>
+    </div>
+    <div>
+      <img src="img/mapa-pabellon.jpg" alt="Plano territorial Pabellón" style="width:100%; aspect-ratio:1/1; object-fit:cover; display:block; border:1px solid var(--border); border-radius:2px;">
+      <p style="font-size:0.8rem; color:var(--mid); margin-top:0.5rem;">Pabellón</p>
+    </div>
+    <div>
+      <img src="img/mapa-bollenar.jpg" alt="Plano territorial Bollenar" style="width:100%; aspect-ratio:1/1; object-fit:cover; display:block; border:1px solid var(--border); border-radius:2px;">
+      <p style="font-size:0.8rem; color:var(--mid); margin-top:0.5rem;">Bollenar</p>
+    </div>
+  </div>
 </section>
 
 <hr class="section-divider">
@@ -826,7 +843,7 @@
 <hr class="section-divider">
 
 <!-- SOBRE MÍ (resumen) -->
-<section id="sobre-mi-resumen" style="max-width:900px;">
+<section id="sobre-mi-resumen">
   <div class="section-tag"><span class="es">Sobre mí</span><span class="en">About me</span></div>
   <div class="about-resumen-grid">
     <div class="about-resumen-photo" style="background-image:url('img/loreto-montana.jpg');background-size:210% auto;background-position:52% 32%;filter:saturate(0.9);" role="img" aria-label="Loreto Salazar — Refugio Nómada"></div>
