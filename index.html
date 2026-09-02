@@ -519,12 +519,18 @@
   .cl-step:last-of-type{ border-bottom:1px solid var(--border); }
   .cl-step-label{ font-size:0.75rem; color:var(--terra); letter-spacing:0.02em; margin:0 0 4px; }
   .cl-step h3{ font-family:'Cormorant Garamond', serif; font-weight:500; font-size:1.35rem; margin:0 0 14px; color:var(--dark); }
+  .cl-selected-tag{ font-family:'DM Sans', sans-serif; font-size:0.72rem; font-weight:600; color:var(--terra); background:var(--terra-pale); padding:3px 10px; border-radius:20px; vertical-align:middle; }
+  .cl-selected-tag:empty{ display:none; }
   .cl-options{ display:flex; flex-wrap:wrap; gap:10px; }
   .cl-opt{ border:1px solid var(--mid); background:transparent; color:var(--dark); padding:9px 16px; font-family:'DM Sans', sans-serif; font-size:0.88rem; cursor:pointer; transition:background 0.15s, color 0.15s, border-color 0.15s; }
   .cl-opt:hover{ border-color:var(--terra); }
   .cl-opt.active{ background:var(--terra); border-color:var(--terra); color:#fff; }
   .cl-opt.cl-toggle.active{ background:#8FA67A; border-color:#8FA67A; color:#20301f; }
   .cl-result{ margin-top:36px; display:none; }
+  .cl-ejemplo-badge{ font-size:0.68rem; font-weight:600; color:#fff; background:var(--accent); padding:2px 9px; border-radius:20px; vertical-align:middle; margin-left:6px; }
+  .cl-result.cl-ejemplo .cl-doc-list{ opacity:0.55; }
+  .cl-result.cl-ejemplo .cl-cta,
+  .cl-result.cl-ejemplo .cl-actions{ display:none; }
   .cl-result.show{ display:block; }
   .cl-result-head{ display:flex; align-items:baseline; justify-content:space-between; border-bottom:2px solid var(--terra); padding-bottom:10px; margin-bottom:4px; }
   .cl-result-head h3{ font-family:'Cormorant Garamond', serif; font-weight:500; font-size:1.5rem; margin:0; color:var(--dark); }
@@ -595,7 +601,8 @@
     <p class="hero-desc es">Arquitectura rural y urbana, bioconstrucción y planificación territorial en Chile. Desde el territorio, y ahora desde el mar.</p>
     <p class="hero-desc en">Rural architecture, bioconstruction and territorial planning across Chile. From the land, and now from the sea.</p>
     <div class="hero-cta">
-      <a href="#servicios" class="btn-primary"><span class="es">Ver servicios</span><span class="en">View services</span></a>
+      <a href="#checklist-preview" class="btn-primary"><span class="es">Arma tu checklist DOM →</span><span class="en">Build your DOM checklist →</span></a>
+      <a href="#servicios" class="btn-secondary"><span class="es">Ver servicios</span><span class="en">View services</span></a>
       <a href="blog.html" class="btn-blog"><span class="es">Ver Blog</span><span class="en">Read Blog</span></a>
       <a href="plantillas.html" class="btn-secondary"><span class="es">Plantillas DOM</span><span class="en">DOM Templates</span></a>
     </div>
@@ -663,21 +670,21 @@
       <span class="es">Arma tu checklist<br><em style="color:var(--accent);">DOM al instante.</em></span>
       <span class="en">Build your<br><em style="color:var(--accent);">DOM checklist instantly.</em></span>
     </h2>
-    <p class="plantillas-intro es" style="color:var(--mid);">Elige el tipo de trámite —obra nueva, fusión, cambio de uso, proyecto sanitario— y obtén el listado de documentos exigidos, con escalas OGUC incluidas.</p>
-    <p class="plantillas-intro en" style="color:var(--mid);">Pick your permit type —new construction, merger, land use change, sanitary project— and get the required document list, OGUC scales included.</p>
+    <p class="plantillas-intro es" style="color:var(--mid);">Elige el tipo de trámite —obra nueva, fusión, cambio de uso, proyecto sanitario— y obtén el listado de documentos exigidos, según la OGUC.</p>
+    <p class="plantillas-intro en" style="color:var(--mid);">Pick your permit type —new construction, merger, land use change, sanitary project— and get the required document list, per Chile's OGUC.</p>
 
     <div class="cl-wrap" style="background:#fff; border-radius:6px; padding:1.75rem 2rem; box-shadow:0 20px 50px rgba(0,0,0,0.25); margin-top:2rem;">
       <div class="cl-two-col">
         <div class="cl-two-col-steps">
           <div class="cl-step">
             <p class="cl-step-label">01</p>
-            <h3>Tipo de obra</h3>
+            <h3>Tipo de obra <span class="cl-selected-tag" id="tipoSelectedTag"></span></h3>
             <div class="cl-options" id="tipo" role="radiogroup"></div>
           </div>
 
           <div class="cl-step" id="stepEstructura">
             <p class="cl-step-label">02</p>
-            <h3>Estructura</h3>
+            <h3>Estructura <span class="cl-selected-tag" id="estructuraSelectedTag"></span></h3>
             <div class="cl-options" id="estructura" role="radiogroup"></div>
           </div>
 
@@ -934,6 +941,9 @@ function clRenderOptions(containerId, items, multi){
         if(containerId==='tipo') clState.tipo = it.id; else clState.estructura = it.id;
         [...el.children].forEach(c=>c.classList.remove('active'));
         b.classList.add('active');
+        const tagId = containerId==='tipo' ? 'tipoSelectedTag' : 'estructuraSelectedTag';
+        const tag = document.getElementById(tagId);
+        if(tag) tag.textContent = it.label;
         if(containerId==='tipo'){
           const esPredial = CL_TRAMITES_PREDIALES.includes(it.id);
           document.getElementById('stepEstructura').style.display = esPredial ? 'none' : '';
@@ -1102,13 +1112,26 @@ function clDocs(){
   return list;
 }
 
+const CL_EJEMPLO = [
+  {name:'Formulario Único de Edificación', why:'Base para cualquier trámite en DOM'},
+  {name:'Certificado de Informaciones Previas (CIP)', why:'Define normativa urbanística aplicable al predio'},
+  {name:'Plano de emplazamiento', why:'Deslindes, distanciamientos y accesos', escala:'1:500'},
+  {name:'Especificaciones Técnicas (EETT)', why:'Describe materialidad y sistema constructivo', hasTemplate:true},
+  {name:'Informe térmico (DS N°15/2024 MINVU)', why:'Exigido para toda vivienda nueva', hasTemplate:true},
+];
+
 function clUpdate(){
-  const list = clDocs();
   const result = document.getElementById('result');
   const docList = document.getElementById('docList');
   const count = document.getElementById('count');
+  const resultHead = document.querySelector('.cl-result-head h3');
 
-  if(!clState.tipo){ result.classList.remove('show'); return; }
+  const isEjemplo = !clState.tipo;
+  const list = isEjemplo ? CL_EJEMPLO : clDocs();
+
+  resultHead.innerHTML = isEjemplo
+    ? 'Así se ve tu checklist <span class="cl-ejemplo-badge">Ejemplo</span>'
+    : 'Tu checklist';
 
   docList.innerHTML = '';
   list.forEach((d,i)=>{
@@ -1120,7 +1143,8 @@ function clUpdate(){
     `;
     docList.appendChild(li);
   });
-  count.textContent = list.length + ' documentos';
+  count.textContent = isEjemplo ? 'elige tu trámite →' : list.length + ' documentos';
+  result.classList.toggle('cl-ejemplo', isEjemplo);
   result.classList.add('show');
 }
 
@@ -1129,15 +1153,18 @@ function resetChecklist(){
   clRenderOptions('tipo', CL_TIPOS, false);
   clRenderOptions('estructura', CL_ESTRUCTURAS, false);
   clRenderOptions('condiciones', CL_CONDICIONES, true);
+  document.getElementById('tipoSelectedTag').textContent = '';
+  document.getElementById('estructuraSelectedTag').textContent = '';
   document.getElementById('stepEstructura').style.display = '';
   document.getElementById('stepCondiciones').style.display = '';
-  document.getElementById('result').classList.remove('show');
+  clUpdate();
   document.getElementById('checklist-preview').scrollIntoView({behavior:'smooth'});
 }
 
 clRenderOptions('tipo', CL_TIPOS, false);
 clRenderOptions('estructura', CL_ESTRUCTURAS, false);
 clRenderOptions('condiciones', CL_CONDICIONES, true);
+clUpdate();
 </script>
 
 <script>

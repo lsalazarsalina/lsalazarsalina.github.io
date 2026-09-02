@@ -98,11 +98,18 @@
   }
   fieldset{border:none;padding:0;margin:0;}
 
+  .selected-tag{ font-family:'DM Sans', sans-serif; font-size:0.72rem; font-weight:600; color:var(--lava); background:var(--salar); padding:3px 10px; border-radius:20px; vertical-align:middle; }
+  .selected-tag:empty{ display:none; }
+
   .result{
     margin-top:40px;
     display:none;
   }
   .result.show{display:block;}
+  .ejemplo-badge{ font-size:0.68rem; font-weight:600; color:#fff; background:var(--atacama); padding:2px 9px; border-radius:20px; vertical-align:middle; margin-left:6px; }
+  .result.ejemplo .doc-list{ opacity:0.55; }
+  .result.ejemplo .cta,
+  .result.ejemplo .actions{ display:none; }
   .result-head{
     display:flex;
     align-items:baseline;
@@ -218,19 +225,19 @@
 <div class="wrap">
   <p class="step-label">Herramientas — Refugio Nómada</p>
   <h1>Checklist de expediente DOM</h1>
-  <p class="sub">Responde según tu proyecto y arma el listado de documentos que probablemente te va a pedir la Dirección de Obras. Es una guía de orientación, no reemplaza la revisión de un profesional.</p>
+  <p class="sub">Responde según tu proyecto y arma el listado de documentos que probablemente te va a pedir la Dirección de Obras, según la OGUC. Es una guía de orientación, no reemplaza la revisión de un profesional.</p>
 
   <div class="two-col">
     <div class="two-col-steps">
       <div class="step">
         <p class="step-label">01</p>
-        <h2>Tipo de obra</h2>
+        <h2>Tipo de obra <span class="selected-tag" id="tipoSelectedTag"></span></h2>
         <div class="options" id="tipo" role="radiogroup"></div>
       </div>
 
       <div class="step" id="stepEstructura">
         <p class="step-label">02</p>
-        <h2>Estructura</h2>
+        <h2>Estructura <span class="selected-tag" id="estructuraSelectedTag"></span></h2>
         <div class="options" id="estructura" role="radiogroup"></div>
       </div>
 
@@ -315,6 +322,9 @@ function renderOptions(containerId, items, multi, activeSet){
         if(containerId==='tipo') state.tipo = it.id; else state.estructura = it.id;
         [...el.children].forEach(c=>c.classList.remove('active'));
         b.classList.add('active');
+        const tagId = containerId==='tipo' ? 'tipoSelectedTag' : 'estructuraSelectedTag';
+        const tag = document.getElementById(tagId);
+        if(tag) tag.textContent = it.label;
         if(containerId==='tipo'){
           const esPredial = TRAMITES_PREDIALES.includes(it.id);
           document.getElementById('stepEstructura').style.display = esPredial ? 'none' : '';
@@ -487,13 +497,26 @@ function docs(){
   return list;
 }
 
+const EJEMPLO = [
+  {name:'Formulario Único de Edificación', why:'Base para cualquier trámite en DOM'},
+  {name:'Certificado de Informaciones Previas (CIP)', why:'Define normativa urbanística aplicable al predio'},
+  {name:'Plano de emplazamiento', why:'Deslindes, distanciamientos y accesos', escala:'1:500'},
+  {name:'Especificaciones Técnicas (EETT)', why:'Describe materialidad y sistema constructivo', hasTemplate:true},
+  {name:'Informe térmico (DS N°15/2024 MINVU)', why:'Exigido para toda vivienda nueva', hasTemplate:true},
+];
+
 function update(){
-  const list = docs();
   const result = document.getElementById('result');
   const docList = document.getElementById('docList');
   const count = document.getElementById('count');
+  const resultHead = document.querySelector('.result-head h2');
 
-  if(!state.tipo){ result.classList.remove('show'); return; }
+  const isEjemplo = !state.tipo;
+  const list = isEjemplo ? EJEMPLO : docs();
+
+  resultHead.innerHTML = isEjemplo
+    ? 'Así se ve tu checklist <span class="ejemplo-badge">Ejemplo</span>'
+    : 'Tu checklist';
 
   docList.innerHTML = '';
   list.forEach((d,i)=>{
@@ -505,7 +528,8 @@ function update(){
     `;
     docList.appendChild(li);
   });
-  count.textContent = list.length + ' documentos';
+  count.textContent = isEjemplo ? 'elige tu trámite →' : list.length + ' documentos';
+  result.classList.toggle('ejemplo', isEjemplo);
   result.classList.add('show');
 }
 
@@ -514,15 +538,18 @@ function reset(){
   renderOptions('tipo', TIPOS, false);
   renderOptions('estructura', ESTRUCTURAS, false);
   renderOptions('condiciones', CONDICIONES, true);
+  document.getElementById('tipoSelectedTag').textContent = '';
+  document.getElementById('estructuraSelectedTag').textContent = '';
   document.getElementById('stepEstructura').style.display = '';
   document.getElementById('stepCondiciones').style.display = '';
-  document.getElementById('result').classList.remove('show');
+  update();
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
 renderOptions('tipo', TIPOS, false);
 renderOptions('estructura', ESTRUCTURAS, false);
 renderOptions('condiciones', CONDICIONES, true);
+update();
 </script>
 </body>
 </html>
