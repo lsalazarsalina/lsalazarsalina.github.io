@@ -36,8 +36,12 @@
     gap:48px;
     align-items:start;
   }
+  .two-col-steps{ order:2; }
+  .result{ order:1; }
   @media (max-width:800px){
     .two-col{ grid-template-columns:1fr; gap:0; }
+    .two-col-steps{ order:1; }
+    .result{ order:2; }
   }
   h1{
     font-family:'Cormorant Garamond', serif;

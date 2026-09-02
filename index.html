@@ -514,7 +514,9 @@
   /* CHECKLIST DOM (embebido en home) */
   .cl-wrap{ margin-top:2rem; }
   .cl-two-col{ display:grid; grid-template-columns:1fr 1fr; gap:2.5rem; align-items:start; }
-  @media (max-width:800px){ .cl-two-col{ grid-template-columns:1fr; gap:0; } }
+  .cl-two-col-steps{ order:2; }
+  .cl-result{ order:1; }
+  @media (max-width:800px){ .cl-two-col{ grid-template-columns:1fr; gap:0; } .cl-two-col-steps{ order:1; } .cl-result{ order:2; } }
   .cl-step{ border-top:1px solid var(--border); padding:24px 0; }
   .cl-step:last-of-type{ border-bottom:1px solid var(--border); }
   .cl-step-label{ font-size:0.75rem; color:var(--terra); letter-spacing:0.02em; margin:0 0 4px; }
