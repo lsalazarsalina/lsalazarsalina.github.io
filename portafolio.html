@@ -495,6 +495,30 @@
   .hero h1 { animation: fadeUp 0.6s 0.1s ease both; }
   .hero-desc { animation: fadeUp 0.6s 0.2s ease both; }
   .hero-cta { animation: fadeUp 0.6s 0.3s ease both; }
+
+  /* ===== Visor de portafolio (presentación) ===== */
+  .pf-viewer { max-width: 1100px; margin: 0 auto; padding: 0 2rem 1rem; }
+  .pf-stage { position: relative; aspect-ratio: 842 / 596; background: var(--terra-pale); border: 1px solid var(--border); box-shadow: 0 14px 40px rgba(92,58,33,0.18); border-radius: 3px; overflow: hidden; user-select: none; touch-action: pan-y; }
+  .pf-stage img { width: 100%; height: 100%; object-fit: contain; display: block; background: #fff; transition: opacity 0.18s ease; }
+  .pf-stage img.pf-fade { opacity: 0; }
+  .pf-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 46px; height: 46px; border-radius: 50%; border: none; background: rgba(92,58,33,0.82); color: #fff; font-size: 1.5rem; line-height: 1; cursor: pointer; transition: background 0.2s, opacity 0.2s; display: flex; align-items: center; justify-content: center; }
+  .pf-nav:hover { background: var(--terra-light); }
+  .pf-nav:disabled { opacity: 0.25; cursor: default; }
+  .pf-prev { left: 14px; }
+  .pf-next { right: 14px; }
+  .pf-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 0.9rem; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); flex-wrap: wrap; }
+  .pf-count { font-variant-numeric: tabular-nums; }
+  .pf-actions { display: flex; gap: 1.2rem; align-items: center; }
+  .pf-actions a, .pf-actions button { background: none; border: none; padding: 0; font: inherit; letter-spacing: inherit; text-transform: inherit; color: var(--terra); cursor: pointer; text-decoration: none; border-bottom: 1px solid var(--terra); }
+  .pf-actions a:hover, .pf-actions button:hover { color: var(--terra-light); border-color: var(--terra-light); }
+  .pf-stage:fullscreen { background: #111; border: none; border-radius: 0; box-shadow: none; aspect-ratio: auto; }
+  .pf-stage:fullscreen img { background: #111; }
+  .pf-stage:-webkit-full-screen { background: #111; aspect-ratio: auto; }
+  @media (max-width: 600px) {
+    .pf-viewer { padding: 0 1rem 1rem; }
+    .pf-nav { width: 38px; height: 38px; font-size: 1.25rem; }
+    .pf-prev { left: 8px; } .pf-next { right: 8px; }
+  }
 </style>
 
 </head>
@@ -533,6 +557,21 @@
     </a>
   </p>
 </div>
+
+<section class="pf-viewer" id="pf-viewer" aria-label="Portafolio">
+  <div class="pf-stage" id="pf-stage" tabindex="0">
+    <img id="pf-img" src="portafolio-paginas/p-01.jpg" alt="Portafolio Loreto Salazar Salina">
+    <button class="pf-nav pf-prev" id="pf-prev" type="button" aria-label="Anterior / Previous">&#8249;</button>
+    <button class="pf-nav pf-next" id="pf-next" type="button" aria-label="Siguiente / Next">&#8250;</button>
+  </div>
+  <div class="pf-bar">
+    <span class="pf-count" id="pf-count">1 / 17</span>
+    <span class="pf-actions">
+      <button type="button" id="pf-full"><span class="es">Pantalla completa</span><span class="en">Full screen</span></button>
+      <a href="files/Loreto_Salazar_Salina_Portfolio.pdf" target="_blank" rel="noopener"><span class="es">Descargar PDF</span><span class="en">Download PDF</span></a>
+    </span>
+  </div>
+</section>
 
 <section id="portfolio" style="max-width:1200px; padding:1rem 2rem 3rem;">
   <div class="portfolio-group-title es">Modelados 3D & Proyectos</div>
@@ -671,5 +710,58 @@
 </script>
 
 
+<script>
+(function () {
+  var total = 17, cur = 1;
+  var img = document.getElementById('pf-img');
+  var stage = document.getElementById('pf-stage');
+  var prev = document.getElementById('pf-prev');
+  var next = document.getElementById('pf-next');
+  var count = document.getElementById('pf-count');
+  var full = document.getElementById('pf-full');
+  if (!img) return;
+  function src(n) { return 'portafolio-paginas/p-' + (n < 10 ? '0' : '') + n + '.jpg'; }
+  function preload(n) { if (n >= 1 && n <= total) { var i = new Image(); i.src = src(n); } }
+  function go(n) {
+    if (n < 1 || n > total || n === cur) return;
+    cur = n;
+    img.classList.add('pf-fade');
+    setTimeout(function () {
+      img.src = src(cur);
+      img.alt = 'Portafolio, lámina ' + cur + ' de ' + total;
+      img.onload = function () { img.classList.remove('pf-fade'); };
+      count.textContent = cur + ' / ' + total;
+      prev.disabled = cur === 1;
+      next.disabled = cur === total;
+      preload(cur + 1); preload(cur - 1);
+    }, 150);
+  }
+  prev.onclick = function () { go(cur - 1); };
+  next.onclick = function () { go(cur + 1); };
+  prev.disabled = true;
+  preload(2);
+  stage.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { go(cur + 1); e.preventDefault(); }
+    if (e.key === 'ArrowLeft') { go(cur - 1); e.preventDefault(); }
+  });
+  var x0 = null;
+  stage.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+  stage.addEventListener('touchend', function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1));
+    x0 = null;
+  });
+  var canFull = stage.requestFullscreen || stage.webkitRequestFullscreen;
+  if (!canFull) { full.style.display = 'none'; }
+  full.onclick = function () {
+    if (document.fullscreenElement || document.webkitFullscreenElement) {
+      (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    } else {
+      canFull.call(stage);
+    }
+  };
+})();
+</script>
 </body>
 </html>
