@@ -514,6 +514,12 @@
   .pf-stage:fullscreen { background: #111; border: none; border-radius: 0; box-shadow: none; aspect-ratio: auto; }
   .pf-stage:fullscreen img { background: #111; }
   .pf-stage:-webkit-full-screen { background: #111; aspect-ratio: auto; }
+
+  .pf-stage { display: flex; align-items: center; justify-content: center; }
+  .pf-stage canvas { display: block; background: #fff; transition: opacity 0.18s ease; max-width: 100%; max-height: 100%; }
+  .pf-stage canvas.pf-fade { opacity: 0; }
+  .pf-msg { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 1rem; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mid); pointer-events: none; }
+  .pf-msg.pf-hide { display: none; }
   @media (max-width: 600px) {
     .pf-viewer { padding: 0 1rem 1rem; }
     .pf-nav { width: 38px; height: 38px; font-size: 1.25rem; }
@@ -550,17 +556,12 @@
   <h1 class="section-title">
     <span class="es">Proyectos en<br><em>el territorio.</em></span>
     <span class="en">Projects in<br><em>the territory.</em></span>
-  </h1>  <p style="margin-top:1.8rem;">
-    <a href="files/Loreto_Salazar_Salina_Portfolio.pdf" target="_blank" rel="noopener" class="btn-primary" style="display:inline-block;">
-      <span class="es">Descargar portafolio (PDF) →</span>
-      <span class="en">Download portfolio (PDF) →</span>
-    </a>
-  </p>
-</div>
+  </h1></div>
 
 <section class="pf-viewer" id="pf-viewer" aria-label="Portafolio">
   <div class="pf-stage" id="pf-stage" tabindex="0">
-    <img id="pf-img" src="portafolio-paginas/p-01.jpg" alt="Portafolio Loreto Salazar Salina">
+    <canvas id="pf-canvas" role="img" aria-label="Portafolio Loreto Salazar Salina"></canvas>
+    <div class="pf-msg" id="pf-msg"><span class="es">Cargando portafolio…</span><span class="en">Loading portfolio…</span></div>
     <button class="pf-nav pf-prev" id="pf-prev" type="button" aria-label="Anterior / Previous">&#8249;</button>
     <button class="pf-nav pf-next" id="pf-next" type="button" aria-label="Siguiente / Next">&#8250;</button>
   </div>
@@ -710,36 +711,66 @@
 </script>
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
 (function () {
-  var total = 17, cur = 1;
-  var img = document.getElementById('pf-img');
+  var URL_PDF = 'files/Loreto_Salazar_Salina_Portfolio.pdf';
   var stage = document.getElementById('pf-stage');
+  var canvas = document.getElementById('pf-canvas');
+  var msg = document.getElementById('pf-msg');
   var prev = document.getElementById('pf-prev');
   var next = document.getElementById('pf-next');
   var count = document.getElementById('pf-count');
   var full = document.getElementById('pf-full');
-  if (!img) return;
-  function src(n) { return 'portafolio-paginas/p-' + (n < 10 ? '0' : '') + n + '.jpg'; }
-  function preload(n) { if (n >= 1 && n <= total) { var i = new Image(); i.src = src(n); } }
-  function go(n) {
-    if (n < 1 || n > total || n === cur) return;
-    cur = n;
-    img.classList.add('pf-fade');
-    setTimeout(function () {
-      img.src = src(cur);
-      img.alt = 'Portafolio, lámina ' + cur + ' de ' + total;
-      img.onload = function () { img.classList.remove('pf-fade'); };
-      count.textContent = cur + ' / ' + total;
-      prev.disabled = cur === 1;
-      next.disabled = cur === total;
-      preload(cur + 1); preload(cur - 1);
-    }, 150);
+  if (!canvas) return;
+
+  function fail() {
+    msg.innerHTML = '<span>Descarga el portafolio con el link de abajo · Use the download link below</span>';
+    msg.classList.remove('pf-hide');
+    prev.disabled = true; next.disabled = true;
   }
+  if (!window.pdfjsLib) { fail(); return; }
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+  var pdf = null, total = 0, cur = 1, token = 0, task = null;
+
+  function render(n) {
+    var my = ++token;
+    pdf.getPage(n).then(function (page) {
+      if (my !== token) return;
+      var base = page.getViewport({ scale: 1 });
+      var cw = stage.clientWidth, ch = stage.clientHeight;
+      var fit = Math.min(cw / base.width, ch / base.height);
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var vp = page.getViewport({ scale: fit * dpr });
+      canvas.width = Math.floor(vp.width);
+      canvas.height = Math.floor(vp.height);
+      canvas.style.width = Math.floor(base.width * fit) + 'px';
+      canvas.style.height = Math.floor(base.height * fit) + 'px';
+      if (task) { try { task.cancel(); } catch (e) {} }
+      task = page.render({ canvasContext: canvas.getContext('2d'), viewport: vp });
+      task.promise.then(function () {
+        if (my !== token) return;
+        msg.classList.add('pf-hide');
+        canvas.classList.remove('pf-fade');
+      }, function () {});
+    }, fail);
+  }
+
+  function go(n) {
+    if (!pdf || n < 1 || n > total) return;
+    cur = n;
+    canvas.classList.add('pf-fade');
+    count.textContent = cur + ' / ' + total;
+    prev.disabled = cur === 1;
+    next.disabled = cur === total;
+    setTimeout(function () { render(cur); }, 120);
+  }
+
   prev.onclick = function () { go(cur - 1); };
   next.onclick = function () { go(cur + 1); };
-  prev.disabled = true;
-  preload(2);
+  prev.disabled = true; next.disabled = true;
+
   stage.addEventListener('keydown', function (e) {
     if (e.key === 'ArrowRight') { go(cur + 1); e.preventDefault(); }
     if (e.key === 'ArrowLeft') { go(cur - 1); e.preventDefault(); }
@@ -752,15 +783,27 @@
     if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1));
     x0 = null;
   });
+
   var canFull = stage.requestFullscreen || stage.webkitRequestFullscreen;
   if (!canFull) { full.style.display = 'none'; }
   full.onclick = function () {
     if (document.fullscreenElement || document.webkitFullscreenElement) {
       (document.exitFullscreen || document.webkitExitFullscreen).call(document);
-    } else {
-      canFull.call(stage);
-    }
+    } else { canFull.call(stage); }
   };
+
+  var rt;
+  function redraw() { clearTimeout(rt); rt = setTimeout(function () { if (pdf) render(cur); }, 200); }
+  window.addEventListener('resize', redraw);
+  document.addEventListener('fullscreenchange', redraw);
+  document.addEventListener('webkitfullscreenchange', redraw);
+
+  pdfjsLib.getDocument(URL_PDF).promise.then(function (doc) {
+    pdf = doc; total = doc.numPages;
+    count.textContent = '1 / ' + total;
+    next.disabled = total < 2;
+    render(1);
+  }, fail);
 })();
 </script>
 </body>
